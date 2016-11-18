@@ -14,6 +14,8 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+const productsRoutes = require("./routes/products");
+
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
@@ -21,6 +23,9 @@ const usersRoutes = require("./routes/users");
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
+
+// Api routes to get database information
+app.use("/api/products", productsRoutes(knex));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
@@ -42,6 +47,15 @@ app.use("/api/users", usersRoutes(knex));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+app.get("/products", (rer, res) => {
+  knex
+  .select("id", "name", "description", "unit_price", "image")
+  .from("products")
+  .then((products) => {
+    res.render('product-display', {products: products} );
+  })
+})
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

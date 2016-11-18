@@ -1,5 +1,5 @@
 exports.up = function(knex, Promise) {
-  return Promise.all([
+ return Promise.all([
 
     knex.schema.createTable('orders', function (table) {
       table.increments();
@@ -43,4 +43,3 @@ exports.down = function(knex, Promise) {
     knex.schema.dropTable('products'),
     knex.schema.dropTable('line_items'),
     knex.schema.dropTable('reviews')]
-)};

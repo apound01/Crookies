@@ -12,10 +12,12 @@
   "author": "Lighthouse Labs",
   "license": "ISC",
   "dependencies": {
+    "basicauth-middleware": "^2.0.0",
     "body-parser": "^1.15.2",
     "dotenv": "^2.0.0",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
+    "http-auth": "^3.1.0",
     "knex": "^0.11.10",
     "knex-logger": "^0.1.0",
     "morgan": "^1.7.0",

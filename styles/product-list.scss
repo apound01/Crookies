@@ -1,0 +1,91 @@
+/* font Awesome http://fontawesome.io*/
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+/* Animation.css*/
+@import url(https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css);
+
+.product-list {
+  margin: 140px 4em 4em 4em;
+}
+
+.col-item .options {
+  position:absolute;
+  top:6px;
+  right:22px;
+  display:none;
+}
+
+.col-item .options-cart {
+  position:absolute;
+  left:22px;
+  top:6px;
+  display:none;
+}
+
+.col-item .col-md-3:hover .options,
+.col-item .col-md-3:hover .options-cart {
+  display:block;
+  -webkit-animation: fadeIn .5s ease;
+  -moz-animation: fadeIn .5s ease;
+  -ms-animation: fadeIn .5s ease;
+  -o-animation: fadeIn .5s ease;
+  animation: fadeIn .5s ease;
+}
+
+.col-item .options-cart-round {
+  position:absolute;
+  left:42%;
+  top:22%;
+  display:none;
+}
+.col-item .options-cart-round button {
+  border-radius: 50%;
+  padding:14px 16px;
+
+}
+.col-item .options-cart-round button .fa {
+  font-size:22px;
+}
+.col-item .photo:hover .options-cart-round {
+  display:block;
+  -webkit-animation: fadeInDown .5s ease;
+  -moz-animation: fadeInDown .5s ease;
+  -ms-animation: fadeInDown .5s ease;
+  -o-animation: fadeInDown .5s ease;
+  animation: fadeInDown .5s ease;
+}
+
+.thumbnail h4{
+  font-weight: 600;
+}
+.thumbnail p{
+font-size: 18px;
+margin-top: 5px;
+}
+.price{
+font-size: 30px;
+  margin: 0 auto;
+  color: #333;
+}
+.right{
+float:right;
+border-bottom: 2px solid #4B8E4B;
+}
+.thumbnail{
+opacity:0.70;
+-webkit-transition: all 0.5s;
+transition: all 0.5s;
+}
+.thumbnail:hover{
+opacity:1.00;
+box-shadow: 0px 0px 10px #4bc6ff;
+}
+.line{
+margin-bottom: 5px;
+}
+
+@media screen and (max-width: 770px) {
+.right{
+  float:left;
+  width: 100%;
+  }
+}

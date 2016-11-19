@@ -3,13 +3,9 @@
 /* Animation.css*/
 @import url(https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css);
 
-// .container {
-//   padding-top: 100px;
-//   width: 450px;
-//   margin: 0 auto;
-//   background-color: white;
-//   padding-bottom: 20px;
-// }
+.product-list {
+  margin: 140px 5em 80px 5em;
+}
 
 .col-item {
   border: 1px solid #E1E1E1;
@@ -38,8 +34,8 @@
   top:6px;
   display:none;
 }
-.col-item .photo:hover .options,
-.col-item .photo:hover .options-cart {
+.col-item .hello:hover .options,
+.col-item .hello:hover .options-cart {
   display:block;
   -webkit-animation: fadeIn .5s ease;
   -moz-animation: fadeIn .5s ease;
@@ -84,8 +80,8 @@
   float:left;
 }
 .col-item .price-details .details {
-  margin-bottom: 0px;
-  font-size:12px;
+  margin-bottom: 10px;
+  font-size:16px;
 }
 .col-item .price-details span {
   float:right;

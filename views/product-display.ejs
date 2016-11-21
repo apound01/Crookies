@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/product-list.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/product_layout.css" type="text/css" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -22,17 +22,14 @@
 
   <body>
     <% include ../views/partial/_header %>
-
-
-
-<div class="product-list">
-      <% products.forEach( (product) => { %>
-        <%- include('partial/_productlist', {product: product}); %>
-        <% }); %>
-</div>
-
-
+    <div class="product-list">
+        <% products.forEach( (product) => { %>
+          <%- include('partial/_product', {product: product}); %>
+          <% }); %>
+    </div>
+    <h1 class="break">   </h1>
   </body>
+
   <footer>
   <% include ../views/partial/_footer %>
   </footer>

@@ -3,8 +3,14 @@
 /* Animation.css*/
 @import url(https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css);
 
+.break {
+  margin-bottom: 100px;
+}
+
+
 .product-list {
-  margin: 140px 5em 80px 5em;
+  margin: 140px 3em 0 3em;
+
 }
 
 .col-item {
@@ -34,8 +40,8 @@
   top:6px;
   display:none;
 }
-.col-item .hello:hover .options,
-.col-item .hello:hover .options-cart {
+.col-item .photo:hover .options,
+.col-item .photo:hover .options-cart {
   display:block;
   -webkit-animation: fadeIn .5s ease;
   -moz-animation: fadeIn .5s ease;
@@ -81,7 +87,7 @@
 }
 .col-item .price-details .details {
   margin-bottom: 10px;
-  font-size:16px;
+  font-size: 16px;
 }
 .col-item .price-details span {
   float:right;
@@ -132,4 +138,10 @@
 }
 .col-item .btn-details a:first-child {
   margin-right:12px;
+}
+
+@media all and (max-width: 777px) {
+  .product-list {
+    margin: 140px 1em 0 1em;
+  }
 }

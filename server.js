@@ -48,9 +48,8 @@ app.use("/api/users", usersRoutes(knex));
 
 let auth = function(username, password) {
   return function(req, res, next) {
-    var user = basicAuth(req);
-
-    if (user.name !== process.env.USERNAME && user.pass !== process.env.PASSWORD) {
+    let hello = basicAuth(req);
+    if (hello.name !== process.env.USERNAME && hello.pass !== process.env.PASSWORD) {
       res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
       return res.send(401);
     }
@@ -78,6 +77,16 @@ app.get("/products", (rer, res) => {
     res.render('product-display', {products: products} );
   })
 })
+
+app.get("/products/:id", (req, res) => {
+  knex
+  .select("id", "name", "description", "unit_price", "image")
+  .from("products")
+  .then((products) => {
+    res.render('single-product', {products: products} );
+  })
+});
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

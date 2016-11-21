@@ -5,7 +5,8 @@ require('dotenv').config();
 const PORT        = process.env.PORT || 8080;
 const ENV         = process.env.ENV || "development";
 const express     = require("express");
-const basicAuth        = require('basicauth-middleware');
+// const basicAuth   = require('basicauth-middleware');
+const basicAuth   = require('basic-auth');
 // const auth        = require('http-auth');
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
@@ -45,29 +46,27 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
-var auth = function (req, res, next) {
-  var user = basicAuth(req);
-  if (!user.pass) {
-    res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-    res.sendStatus(401);
-    return;
-  }
-  if (req.user.name === 'amy' && req.user.pass === 'passwd123') {
+let auth = function(username, password) {
+  return function(req, res, next) {
+    var user = basicAuth(req);
+
+    if (user.name !== process.env.USERNAME && user.pass !== process.env.PASSWORD) {
+      res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+      return res.send(401);
+    }
+
     next();
-  } else {
-    res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-    res.sendStatus(401);
-    return;
-  }
-}
+  };
+};
 
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.use('/admin', auth('username', 'password'));
 
-app.get("/admin", auth, function (req, res) {
+app.get("/admin", (req, res) => {
     res.render("admin");
 });
 

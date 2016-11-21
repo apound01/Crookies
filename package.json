@@ -12,6 +12,7 @@
   "author": "Lighthouse Labs",
   "license": "ISC",
   "dependencies": {
+    "basic-auth": "^1.1.0",
     "basicauth-middleware": "^2.0.0",
     "body-parser": "^1.15.2",
     "dotenv": "^2.0.0",

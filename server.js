@@ -5,6 +5,9 @@ require('dotenv').config();
 const PORT        = process.env.PORT || 8080;
 const ENV         = process.env.ENV || "development";
 const express     = require("express");
+// const basicAuth   = require('basicauth-middleware');
+const basicAuth   = require('basic-auth');
+// const auth        = require('http-auth');
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
@@ -43,9 +46,28 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
+let auth = function(username, password) {
+  return function(req, res, next) {
+    var user = basicAuth(req);
+
+    if (user.name !== process.env.USERNAME && user.pass !== process.env.PASSWORD) {
+      res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+      return res.send(401);
+    }
+
+    next();
+  };
+};
+
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
+});
+
+app.use('/admin', auth('username', 'password'));
+
+app.get("/admin", (req, res) => {
+    res.render("admin");
 });
 
 app.get("/products", (rer, res) => {

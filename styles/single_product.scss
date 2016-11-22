@@ -6,6 +6,10 @@
   overflow: hidden;
 }
 
+.break {
+  margin-bottom: 100px;
+}
+
 * {
   -webkit-box-sizing: border-box;
   -mox-box-sizing: border-box;
@@ -20,11 +24,9 @@ body {
   background-color: #ffffff
 }
 
-// div.alert.alert-success {
-//   display: none !important;
-// }
-
-element.style {
+div.alert.alert-success {
+  // display: none !important;
+  margin-top: 10px !important;
 }
 
 .btn-primary:active:hover, .btn-primary.active:hover, .open > .dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open > .dropdown-toggle.btn-primary.focus {
@@ -75,4 +77,8 @@ element.style {
   color:#ffffff;
   background-color:#e53c37;
   border-color:#b81c18;
+}
+
+h2.title {
+  margin-top: 0px !important;
 }

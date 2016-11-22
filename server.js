@@ -79,9 +79,10 @@ app.get("/products", (rer, res) => {
 })
 
 app.get("/products/:id", (req, res) => {
+  id: req.params.id
   knex
   .select("id", "name", "description", "unit_price", "image")
-  .from("products")
+  .from("products").where('id', req.params.id)
   .then((products) => {
     res.render('single-product', {products: products} );
   })

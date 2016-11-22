@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Cart</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/product_layout.css" type="text/css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="/scripts/cart.js"></script>
+   <script type="text/javascript" src="/scripts/bootstrap.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  </head>
+
+  <body>
+    <% include ../views/partial/_header %>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container">
+  	   <table id="cart" class="table table-hover table-condensed">
+      			<thead>
+  						<tr>
+  							<th style="width:50%">Product</th>
+  							<th style="width:10%">Price</th>
+  							<th style="width:8%">Quantity</th>
+  							<th style="width:22%" class="text-center">Subtotal</th>
+  							<th style="width:10%"></th>
+  						</tr>
+  					</thead>
+  					<tbody>
+              <% cart = {} %>
+              <% if(sessionStorage.getItem("cart")) { %>
+                <% cart = JSON.parse(sessionStorage.getItem("cart")) %>
+                <%- include('partial/_cart-product', {cart: cart}); %>
+              <% } %>  					
+            </tbody>
+  					<tfoot>
+  						<tr class="visible-xs">
+  							<td class="text-center"><strong>Total 1.99</strong></td>
+  						</tr>
+  						<tr>
+  							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+  							<td colspan="2" class="hidden-xs"></td>
+  							<td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
+  							<td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+  						</tr>
+  					</tfoot>
+  	  </table>
+    </div>
+
+
+  </body>
+
+  <footer>
+    <% include ../views/partial/_footer %>
+  </footer>
+
+</html>

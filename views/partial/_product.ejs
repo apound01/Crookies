@@ -1,13 +1,14 @@
 <div class="col-sm-3">
   <article class="col-item">
-		<div class="photo">
+		<div class="photo" id="p-photo" data-item-id="<%= product.id %>">
+      <a>
 			<div class="options">
-				<button class="btn btn-default" type="submit" data-toggle="tooltip" data-placement="top" title="Share">
-					<i class="fa fa-exchange"></i>
+				<button class="btn share-button" data-toggle="tooltip" data-placement="top" title="Share">
+					<i class="fa fa-share-alt"></i>
 				</button>
 			</div>
 			<div class="options-cart">
-				<button class="btn btn-default" title="Add to cart">
+				<button class="btn add-cart" title="Add to cart" data-toggle="tooltip" data-item-name="<%= product.name%>" data-item-price="<%= product.unit_price%>" data-item-id="<%= product.id%>">
 					<span class="fa fa-shopping-cart"></span>
 				</button>
 			</div>

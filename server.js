@@ -48,13 +48,17 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/products", (rer, res) => {
+app.get("/products", (req, res) => {
   knex
   .select("id", "name", "description", "unit_price", "image")
   .from("products")
   .then((products) => {
     res.render('product-display', {products: products} );
   })
+})
+
+app.get("/cart", (req, res) => {
+  res.render("cart");
 })
 
 app.listen(PORT, () => {

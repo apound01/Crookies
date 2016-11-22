@@ -46,7 +46,6 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
-<<<<<<< HEAD
 const authenticate = (req, res, next) => {
   const auth = require('basic-auth');
   const user = auth(req);

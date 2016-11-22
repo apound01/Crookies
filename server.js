@@ -46,17 +46,16 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
-let auth = function(username, password) {
-  return function(req, res, next) {
-    var user = basicAuth(req);
-
-    if (user.name !== process.env.USERNAME && user.pass !== process.env.PASSWORD) {
-      res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-      return res.send(401);
-    }
-
+const authenticate = (req, res, next) => {
+  const auth = require('basic-auth');
+  const user = auth(req);
+  if (user === undefined || user['name'] !== process.env.USERNAME || user['pass'] !== process.env.PASSWORD) {
+    res.statusCode = 401;
+    res.setHeader('WWW-Authenticate', 'Basic realm="Bitte anmelden!"');
+    res.end('Unauthorized');
+  } else {
     next();
-  };
+  }
 };
 
 // Home page
@@ -64,9 +63,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.use('/admin', auth('username', 'password'));
-
-app.get("/admin", (req, res) => {
+app.get("/admin", authenticate, (req, res) => {
     res.render("admin");
 });
 

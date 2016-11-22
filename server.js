@@ -46,6 +46,7 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
+<<<<<<< HEAD
 const authenticate = (req, res, next) => {
   const auth = require('basic-auth');
   const user = auth(req);
@@ -75,6 +76,17 @@ app.get("/products", (rer, res) => {
     res.render('product-display', {products: products} );
   })
 })
+
+app.get("/products/:id", (req, res) => {
+  id: req.params.id
+  knex
+  .select("id", "name", "description", "unit_price", "image")
+  .from("products").where('id', req.params.id)
+  .then((products) => {
+    res.render('single-product', {products: products} );
+  })
+});
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

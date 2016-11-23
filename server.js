@@ -62,11 +62,15 @@ app.get("/", (req, res) => {
 });
 
 app.get("/admin", authenticate, (req, res) => {
-    res.render("admin");
+  knex
+  .select("id", "first_name", "last_name", "email", "shipping_address", "shipping_city", "shipping_postalcode", "shipping_country")
+  .from("orders")
+  .then((orders) => {
+    res.render('admin', {orders: orders} );
+  })
 });
 
 app.get("/products", (rer, res) => {
-
   knex
   .select("id", "name", "description", "unit_price", "image")
   .from("products")

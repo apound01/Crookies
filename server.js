@@ -20,6 +20,10 @@ const productsRoutes = require("./routes/products");
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
+const stripeApiKey = "...";
+const stripeApiKeyTesting = "..."
+const stripe = require('stripe')(stripeApiKey);
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -70,6 +74,10 @@ app.get("/admin", authenticate, (req, res) => {
   })
 });
 
+app.get("/checkout", authenticate, (req, res) => {
+    res.render("checkout");
+});
+
 app.get("/products", (rer, res) => {
   knex
   .select("id", "name", "description", "unit_price", "image")
@@ -92,6 +100,44 @@ app.get("/products/:id", (req, res) => {
 app.get("/cart", (req, res) => {
   res.render("cart");
 })
+
+app.post("/checkout", (req, res) => {
+  knex('orders').insert({
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      email: req.body.email,
+      shipping_address: req.body.shipping_address,
+      shipping_city: req.body.shipping_city,
+      shipping_postalcode: req.body.shipping_postalcode,
+      shipping_country: req.body.shipping_country
+  })
+  .return({
+    inserted: true
+  })
+  .then(() => {
+    res.render("index");
+  });
+})
+
+app.post("/plans/browserling_developer", function(req, res) {
+  stripe.customers.create({
+    card : req.body.stripeToken,
+    email : "...", // customer's email (get it from db or session)
+    plan : "browserling_developer"
+  }, function (err, customer) {
+    if (err) {
+      var msg = customer.error.message || "unknown";
+      res.send("Error while processing your payment: " + msg)
+    }
+    else {
+      var id = customer.id;
+      console.log('Success! Customer with Stripe ID ' + id + ' just signed up!');
+      // save this customer to your database here!
+      res.send('ok');
+    }
+  });
+});
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

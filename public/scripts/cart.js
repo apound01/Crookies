@@ -4,12 +4,12 @@ $(document).ready(function(){
 
   const items_in_cart = () =>{
 
-    if(sessionStorage.getItem("cart")) {
+    if(localStorage.getItem("cart")) {
 
-      cart = JSON.parse(sessionStorage.getItem("cart"));
+      cart = JSON.parse(localStorage.getItem("cart"));
+      cart.forEach( (product) => {
 
+      })
     }
   }
-
-  
-}
+})

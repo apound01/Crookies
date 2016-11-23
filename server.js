@@ -66,6 +66,7 @@ app.get("/admin", authenticate, (req, res) => {
 });
 
 app.get("/products", (rer, res) => {
+
   knex
   .select("id", "name", "description", "unit_price", "image")
   .from("products")
@@ -84,6 +85,9 @@ app.get("/products/:id", (req, res) => {
   })
 });
 
+app.get("/cart", (req, res) => {
+  res.render("cart");
+})
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

@@ -1,15 +1,13 @@
-$(document).ready(function(){
+$(document).ready( function() {
 
   let cart = {};
 
-  const items_in_cart = () =>{
-
+  const getCart = () => {
     if(localStorage.getItem("cart")) {
-
       cart = JSON.parse(localStorage.getItem("cart"));
-      cart.forEach( (product) => {
-
-      })
+      return cart;
+    } else {
+      return 0;
     }
   }
 })

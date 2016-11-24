@@ -74,7 +74,7 @@ app.get("/admin", authenticate, (req, res) => {
   })
 });
 
-app.get("/checkout", authenticate, (req, res) => {
+app.get("/checkout", (req, res) => {
     res.render("checkout");
 });
 

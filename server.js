@@ -98,7 +98,9 @@ app.get("/products/:id", (req, res) => {
 });
 
 app.get("/cart", (req, res) => {
-  res.render("cart");
+  res.render("cart", {
+
+  });
 })
 
 app.post("/checkout", (req, res) => {

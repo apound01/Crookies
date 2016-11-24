@@ -7,7 +7,7 @@ $(document).ready(function(){
   if(localStorage.getItem("cart")) {
     cart = JSON.parse(localStorage.getItem("cart"));
     for(let product in cart) {
-      total += cart[product]["quantity"];
+      total += Number(cart[product]["quantity"]);
     }
     $("#cart-items").text("Cart(" + total + ")");
   }
@@ -17,12 +17,14 @@ $(document).ready(function(){
     const name = $(this).data("item-name");
     const price = parseFloat($(this).data("item-price"));
     const id = $(this).data("item-id");
+    const description = $(this).data("item-description");
     const image = $(this).data("item-image");
     if(!cart[id]) {
       cart[id] = {
         "name": name,
         "price": price,
         "quantity": 1,
+        "description": description,
         "image": image
       }
     } else {

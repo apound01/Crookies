@@ -3,7 +3,6 @@ $(document).ready( function() {
   let cart = {};
   let total = 0;
 
-
   const renderCart = () => {
     if(localStorage.getItem("cart")) {
       cart = JSON.parse(localStorage.getItem("cart"));
@@ -13,25 +12,20 @@ $(document).ready( function() {
         total += subtotal;
         total = Math.round(total * 100) / 100;
         new Promise( function(response, reject) {
-          $("tbody").append(`<tr>
+          $(".panel-body.products").append(`<tr>
                              <td data-th="Product">
                              <div class="row">
                              <div class="col-sm-2 hidden-xs"><img src="${cart[product].image}" alt="..." class="img-responsive"/></div>
                              <div class="col-sm-10">
                              <h4 class="nomargin">${cart[product].name}</h4>
-                             <p>${cart[product].description}</p>
                              </div>
                              </div>
+                             <br>
                              </td>
                              <td data-th="Price">$${cart[product].price}</td>
-                             <td data-th="Quantity">
-                             <input type="number" id="item-quantity-${product}" class="form-control text-center" value="${cart[product].quantity}">
+                             <td data-th="Quantity">${product}
                              </td>
                              <td data-th="Subtotal" class="text-center">$${subtotal}</td>
-                             <td class="actions" data-th="">
-                             <button class="btn btn-info btn-sm refresh"><i class="fa fa-refresh"></i></button>
-                             <button id="item-${product}" data-item-id="${product}" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-o"></i></button>
-                             </td>
                              </tr>`)
         })
       }

@@ -42,4 +42,6 @@ exports.down = function(knex, Promise) {
     knex.schema.dropTable('orders'),
     knex.schema.dropTable('products'),
     knex.schema.dropTable('line_items'),
-    knex.schema.dropTable('reviews')]
+    knex.schema.dropTable('reviews')
+  ])
+};

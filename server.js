@@ -16,6 +16,7 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
 const productsRoutes = require("./routes/products");
+const reviewsRoutes = require("./routes/reviews");
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -31,6 +32,8 @@ app.use(morgan('dev'));
 
 // Api routes to get database information
 app.use("/api/products", productsRoutes(knex));
+app.use("/api/reviews", reviewsRoutes(knex));
+
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
@@ -67,14 +70,14 @@ app.get("/", (req, res) => {
 
 app.get("/admin", authenticate, (req, res) => {
   knex
-  .select("id", "first_name", "last_name", "email", "shipping_address", "shipping_city", "shipping_postalcode", "shipping_country")
+  .select("*")
   .from("orders")
   .then((orders) => {
     res.render('admin', {orders: orders} );
   })
 });
 
-app.get("/checkout", authenticate, (req, res) => {
+app.get("/checkout", (req, res) => {
     res.render("checkout");
 });
 
@@ -93,9 +96,30 @@ app.get("/products/:id", (req, res) => {
   .select("id", "name", "description", "unit_price", "image")
   .from("products").where('id', req.params.id)
   .then((products) => {
-    res.render('single-product', {products: products} );
+        knex
+        .select("rating", "description")
+        .from("reviews").where('product_id', req.params.id)
+        .then((reviews) => {
+          res.render('single-product', {products: products, reviews: reviews} );
+        })
+      })
+    })
+
+
+app.post("/products/:id", (req, res) => {
+  const id = req.params.id
+  knex('reviews').insert({
+      product_id: req.params.id,
+      description: req.body.description,
+      rating: req.body.rating
+    })
+    .return({
+      inserted: true
+    })
+    .then(() => {
+      res.redirect(id);
+    });
   })
-});
 
 app.get("/cart", (req, res) => {
   res.render("cart");

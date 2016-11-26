@@ -67,7 +67,7 @@ app.get("/", (req, res) => {
 
 app.get("/admin", authenticate, (req, res) => {
   knex
-  .select("id", "first_name", "last_name", "email", "shipping_address", "shipping_city", "shipping_postalcode", "shipping_country")
+  .select("*")
   .from("orders")
   .then((orders) => {
     res.render('admin', {orders: orders} );
@@ -93,9 +93,30 @@ app.get("/products/:id", (req, res) => {
   .select("id", "name", "description", "unit_price", "image")
   .from("products").where('id', req.params.id)
   .then((products) => {
-    res.render('single-product', {products: products} );
+        knex
+        .select("rating", "description")
+        .from("reviews").where('product_id', req.params.id)
+        .then((reviews) => {
+          res.render('single-product', {products: products, reviews: reviews} );
+        })
+      })
+    })
+
+
+app.post("/products/:id", (req, res) => {
+  const id = req.params.id
+  knex('reviews').insert({
+      product_id: req.params.id,
+      description: req.body.description,
+      rating: req.body.rating
+    })
+    .return({
+      inserted: true
+    })
+    .then(() => {
+      res.redirect(id);
+    });
   })
-});
 
 app.get("/cart", (req, res) => {
   res.render("cart", {

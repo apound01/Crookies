@@ -16,7 +16,6 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
 const productsRoutes = require("./routes/products");
-const reviewsRoutes = require("./routes/reviews");
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -32,8 +31,6 @@ app.use(morgan('dev'));
 
 // Api routes to get database information
 app.use("/api/products", productsRoutes(knex));
-app.use("/api/reviews", reviewsRoutes(knex));
-
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));

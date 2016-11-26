@@ -4,6 +4,9 @@ var __slice=[].slice;(function(e,t){var n;n=function(){function t(t,n){var r,i,s
 
 $(function(){
 
+  $('.review').unbind('mouseover');
+  $('.review').unbind('click');
+
   $('#new-review').autosize({append: "\n"});
 
   const reviewBox = $('#post-review-box');

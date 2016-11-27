@@ -13,7 +13,7 @@
           </thead>
           <tbody>
             <tr>
-              <td data-th="Order ID">
+              <td data-th="Order ID"><%= order.id %>
                 <div class="row">
                   <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
                   <div class="col-sm-10">
@@ -27,16 +27,31 @@
                   <%= order.shipping_postalcode %></br>
                   <%= order.shipping_country %>
               </td>
-              <td data-th="Product">1.99</td>
-              <td data-th="Quantity">1.99</td>
-              <td data-th="Unit Price">1.99</td>
-              <td data-th="Total">1.99</td>
+              <td data-th="Product">
+                <% for (i in line_items) { %>
+                <% if (line_items[i].order_id === order.id) { %>
+                <%= line_items[i].product_id %></br>
+                <% } %>
+                <% }; %>
+              </td>
+              <td data-th="Quantity">
+                <% for (i in line_items) { %>
+                <% if (line_items[i].order_id === order.id) { %>
+                <%= line_items[i].quantity %></br>
+                <% } %>
+                <% }; %>
+              </td>
+              <td data-th="Unit Price">
+                <% for (i in line_items) { %>
+                <% if (line_items[i].order_id === order.id) { %>
+                <%= line_items[i].item_price_cents %></br>
+                <% } %>
+                <% }; %>
+              </td>
+              <td data-th="Total"><%= order.total_cents %></td>
             </tr>
           </tbody>
           <tfoot>
-            <tr class="visible-xs">
-              <td class="text-center"><strong>Total 1.99</strong></td>
-            </tr>
             <tr>
               <td colspan="7" class="hidden-xs"></td>
               <td class="hidden-xs text-center"></td>

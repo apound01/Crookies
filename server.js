@@ -67,12 +67,17 @@ app.get("/", (req, res) => {
 
 app.get("/admin", authenticate, (req, res) => {
   knex
-  .select("*")
-  .from("orders")
-  .then((orders) => {
-    res.render('admin', {orders: orders} );
-  })
-});
+    .select("*")
+    .from("orders")
+    .then((orders) => {
+      knex
+      .select("*")
+      .from("line_items")
+      .then((line_items) => {
+        res.render('admin', {orders: orders, line_items: line_items} );
+      })
+    })
+  });
 
 app.get("/checkout", (req, res) => {
     res.render("checkout");

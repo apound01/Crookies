@@ -4,7 +4,7 @@
             <div id='mainContentWrapper'>
                 <div class="col-md-8 col-md-offset-2">
                     <h2 style="text-align: center;">
-                        Review Your Order and Complete Checkout
+                        Complete Checkout
                     </h2>
                     <hr/>
                     <a href="/products" class="btn btn-info" style="width: 100%;">Add More Products & Services</a>
@@ -21,41 +21,28 @@
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse in">
                                         <div class="panel-body">
-                                            <div class="items">
-                                                <div class="col-md-9">
-                                                    <table class="table table-striped">
-                                                        <tr>
-                                                            <td colspan="2">
-                                                                <a class="btn btn-warning btn-sm pull-right"
-                                                                   href=""
-                                                                   title="Remove Item">X</a>
-                                                                <b>
-                                                                    Premium Posting</b></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <ul>
-                                                                    <li>One Job Posting Credit</li>
-                                                                    <li>Job Distribution*</li>
-                                                                    <li>Social Media Distribution</li>
-                                                                </ul>
-                                                            </td>
-                                                            <td>
-                                                                <b>$147.00</b>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div style="text-align: center;">
-                                                        <h3>Order Total</h3>
-                                                        <h3><span style="color:green;">$147.00</span></h3>
-                                                    </div>
+                                          <table class="table table-hover table-condensed">
+                                          <thead class="panel-body products">
+                                						<tr>
+                                							<th style="width:50%">Product</th>
+                                							<th style="width:10%">Price</th>
+                                							<th style="width:8%">Quantity</th>
+                                							<th style="width:22%" class="text-center">Subtotal</th>
+                                							<th style="width:10%"></th>
+                                						</tr>
+                                					</thead>
+                                        </table>
+                                        <div class="items">
+                                            <div class="col-md-3">
+                                                <div style="text-align: center;">
+                                                    <h3>Order Total</h3>
+                                                    <h3><span id="total" style="color:green;">$</span></h3>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="panel panel-default">
@@ -126,6 +113,14 @@
                                             </tr>
                                             <tr>
                                                 <td style="width: 175px;">
+                                                    <label for="shipping_postalcode">Postal code:</label></td>
+                                                <td>
+                                                    <input class="form-control" id="shipping_postalcode" name="shipping_city"
+                                                           required="required" type="string"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 175px;">
                                                     <label for="shipping_province">Province:</label></td>
                                                 <td>
                                                     <select class="form-control" id="shipping_province" name="shipping_province">
@@ -146,14 +141,6 @@
                                             </tr>
                                             <tr>
                                                 <td style="width: 175px;">
-                                                    <label for="shipping_postalcode">Postal Code:</label></td>
-                                                <td>
-                                                    <input class="form-control" id="shipping_postalcode" name="shipping_postalcode"
-                                                           required="required" type="string"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 175px;">
                                                     <label for="shipping_country">Country:</label></td>
                                                 <td>
                                                     <select class="form-control" id="shipping_country" name="shipping_country">
@@ -161,8 +148,16 @@
                                                     </select>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td style="width: 175px;">
+                                                    <label for="shipping_postalcode">Message:</label></td>
+                                                <td>
+                                                    <textarea class="form-control" id="message" name="message" rows="6" type="string">
+                                                    </textarea>
+                                                </td>
+                                            </tr>
                                         </table>
-                                          <button type="submit" class="btn btn-success btn-lg" style="width:100%;">
+                                          <button type="button" id="paynow" class="btn btn-success btn-lg" style="width:100%;">
                                             Pay Now
                                            </button>
                                     </div>

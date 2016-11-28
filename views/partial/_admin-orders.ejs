@@ -30,7 +30,7 @@
               <td data-th="Product">
                 <% for (i in line_items) { %>
                 <% if (line_items[i].order_id === order.id) { %>
-                <%= line_items[i].product_id %></br>
+                <%= line_items[i].product_name %></br>
                 <% } %>
                 <% }; %>
               </td>
@@ -44,7 +44,7 @@
               <td data-th="Unit Price">
                 <% for (i in line_items) { %>
                 <% if (line_items[i].order_id === order.id) { %>
-                <%= line_items[i].item_price_cents %></br>
+                <%= line_items[i].unit_price %></br>
                 <% } %>
                 <% }; %>
               </td>

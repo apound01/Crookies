@@ -104,20 +104,47 @@ app.get("/cart", (req, res) => {
 })
 
 app.post("/checkout", (req, res) => {
-  knex('orders').insert({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      email: req.body.email,
-      shipping_address: req.body.shipping_address,
-      shipping_city: req.body.shipping_city,
-      shipping_postalcode: req.body.shipping_postalcode,
-      shipping_country: req.body.shipping_country
+  let cart = JSON.parse(req.body.cart);
+  knex('orders')
+  .returning('id')
+  .insert({
+    total_price: cart.total,
+    // stripe charge id
+    first_name: req.body.orderinfo.first_name,
+    last_name: req.body.orderinfo.last_name,
+    email: req.body.orderinfo.email,
+    shipping_address: req.body.orderinfo.address,
+    shipping_city: req.body.orderinfo.city,
+    shipping_postalcode: req.body.orderinfo.postalcode,
+    shipping_province: req.body.orderinfo.province,
+    shipping_country: req.body.orderinfo.country,
+    note: req.body.orderinfo.note
+  }).then( (result) => {
+
+
+    for(let product in cart.products) {
+      console.log("YAAASSSSS");
+      console.log("result", result[0]);
+      console.log("product", product);
+      console.log("quantity", cart.products[product].quantity);
+
+      knex("line_items").insert({
+        order_id: result[0],
+        product_id: product,
+        quantity: cart.products[product].quantity,
+        product_name: cart.products[product].name,
+        unit_price: cart.products[product].price,
+        subtotal: (Math.round((cart.products[product].quantity * cart.products[product].price) * 100) / 100)
+      }).then ( () =>{
+        console.log("Line item insert worked!");
+      })
+    }
   })
   .return({
     inserted: true
   })
   .then(() => {
-    res.render("index");
+    res.send();
   });
 })
 

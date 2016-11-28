@@ -6,24 +6,24 @@ $(document).ready( function() {
   const renderCart = () => {
     if(localStorage.getItem("cart")) {
       cart = JSON.parse(localStorage.getItem("cart"));
-      for(let product in cart ) {
+      for(let product in cart['products'] ) {
 
-        let subtotal = Math.round((cart[product].quantity * cart[product].price) * 100) / 100 ;
-        total += subtotal;
-        total = Math.round(total * 100) / 100;
+        let subtotal = Math.round((cart['products'][product].quantity * cart['products'][product].price) * 100) / 100 ;
+        // total += subtotal;
+        // total = Math.round(total * 100) / 100;
         new Promise( function(response, reject) {
           $(".panel-body.products").append(`<tr>
                              <td data-th="Product">
                              <div class="row">
-                             <div class="col-sm-2 hidden-xs"><img src="${cart[product].image}" alt="..." class="img-responsive"/></div>
+                             <div class="col-sm-2 hidden-xs"><img src="${cart['products'][product].image}" alt="..." class="img-responsive"/></div>
                              <div class="col-sm-10">
-                             <h4 class="nomargin">${cart[product].name}</h4>
+                             <h4 class="nomargin">${cart['products'][product].name}</h4>
                              </div>
                              </div>
                              <br>
                              </td>
-                             <td data-th="Price">$${cart[product].price}</td>
-                             <td data-th="Quantity">${product}
+                             <td data-th="Price">$${cart['products'][product].price}</td>
+                             <td data-th="Quantity">${cart['products'][product].quantity}
                              </td>
                              <td data-th="Subtotal" class="text-center">$${subtotal}</td>
                              </tr>`)
@@ -41,7 +41,9 @@ $(document).ready( function() {
 
   renderCart();
 
-  $("#total").append(`<strong>${total}</strong>`)
+  cart = JSON.parse(localStorage.getItem("cart"));
+
+  $("#total").append(`<strong>${cart['total']}</strong>`)
 
   $(".refresh").on("click", function() {
     cart = JSON.parse(localStorage.getItem("cart"));
@@ -82,6 +84,39 @@ $(document).ready( function() {
         location.reload();
       }
     }
+  })
+
+  $("#paynow").on("click", function() {
+
+    let orderinfo = {};
+    let cart = localStorage.getItem("cart");
+
+    orderinfo['total_price'] = cart.total;
+    orderinfo['email'] = $('#email').val();
+    orderinfo['first_name'] = $('#first_name').val();
+    orderinfo['last_name'] = $('#last_name').val();
+    orderinfo['address'] = $('#shipping_address').val();
+    orderinfo['city'] = $('#shipping_city').val();
+    orderinfo['postalcode'] = $('#shipping_postalcode').val();
+    orderinfo['province'] = $('#shipping_province option:selected').text().trim();
+    orderinfo['country'] = $('#shipping_country option:selected').text().trim();
+    orderinfo['note'] = $('#message').val().trim();
+
+    $.ajax({
+      method: "POST",
+      url: "/checkout",
+      data: {"orderinfo": orderinfo,
+             "cart": cart},
+      success: function(data, textStatus) {
+        localStorage.clear();
+        window.location.href = "/";
+      }
+    });
+
+
+    // get all values from forms
+    // get data out of local storage
+    // send back single hash with both infos with AJAX
   })
 
 })

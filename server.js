@@ -150,6 +150,13 @@ app.post("/checkout", (req, res) => {
         unit_price: cart.products[product].price,
         subtotal: (Math.round((cart.products[product].quantity * cart.products[product].price) * 100) / 100)
       })
+      .then( () => {
+        console.log("Inserted item into line_items.");
+      })
+      .catch((error) => {
+        console.log("STARTED FROM THE BOTTOM");
+        console.log(error);
+      })
     }
   })
   .return({

@@ -3,7 +3,7 @@
 $(document).ready(function(){
 
   let cart = {};
-  let total = 0;
+  let total_cart = 0;
 
   const getTotal = (products) => {
     let total = 0;
@@ -18,18 +18,16 @@ $(document).ready(function(){
   if(localStorage.getItem("cart")) {
     cart = JSON.parse(localStorage.getItem("cart"));
     for(let product in cart['products']) {
-      total += Number(cart['products'][product]["quantity"]);
+      total_cart += Number(cart['products'][product]["quantity"]);
     }
-    $("#cart-items").text("Cart(" + total + ")");
+    $("#cart-items").text("Cart(" + total_cart + ")");
   }
 
   $(".btn.add-cart").on("click", function() {
-
     if(!localStorage.getItem("cart")){
       cart['products'] = {};
     }
-
-    total += 1;
+    total_cart += 1;
     const name = $(this).data("item-name");
     const price = parseFloat($(this).data("item-price"));
     const id = $(this).data("item-id");
@@ -49,6 +47,6 @@ $(document).ready(function(){
     cart['total'] = getTotal(cart['products']);
     let jsonString = JSON.stringify(cart);
     localStorage.setItem("cart", jsonString);
-    $("#cart-items").text("Cart(" + total + ")");
+    $("#cart-items").text("Cart(" + total_cart + ")");
   })
 })

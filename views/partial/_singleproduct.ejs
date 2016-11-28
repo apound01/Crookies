@@ -7,11 +7,19 @@
 <div class="container">
   <div class="row product">
     <div class="col-md-5 col-md-offset-0">
-      <img src="<%= product.image %>" class="img-responsive" alt="Product Image" />
+      <img id="image"
+            src="<%= product.image %>"
+            data-item-id="<%= product.id %>",
+            data-item-image="<%= product.image %>"
+            class="img-responsive" alt="Product Image" />
     </div>
     <div class="col-md-7">
-      <h2 class="title"><%= product.name %></h2>
-      <p><%= product.description %></p>
+      <h2 id="item-title"
+              class="title"
+              data-item-name="<%= product.name %>"
+              data-item-id="<%= product.id %>"><%= product.name %></h2>
+      <p id="description" data-item-description="<%= product.description%>">
+        <%= product.description %></p>
       <select>
         <option value selected>Choose Quantity</option>
           <option value="1">1</option>
@@ -25,8 +33,11 @@
             "text."
         </span>
       </div>
-      <h3>$<%= product.unit_price %></h3>
-      <button class="btn btn-primary" type="button">Add to cart</button>
+      <h3 id="price"
+          data-item-price="<%= product.unit_price %>">
+          $<%= product.unit_price %></h3>
+      <button class="btn btn-primary" type="button">
+        Add to cart</button>
     </div>
     </div>
   </div>

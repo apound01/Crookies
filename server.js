@@ -88,23 +88,30 @@ app.get("/products", (rer, res) => {
 })
 
 app.get("/products/:id", (req, res) => {
-  id: req.params.id
+  let id = req.params.id;
+  console.log("**********************************", id);
   knex
   .select("id", "name", "description", "unit_price", "image")
-  .from("products").where('id', req.params.id)
+  .from("products").where('id', id)
   .then((products) => {
         knex
         .select("rating", "description")
         .from("reviews").where('product_id', req.params.id)
         .then((reviews) => {
-          res.render('single-product', {products: products, reviews: reviews} );
+          res.render('single-product', {products: products, reviews: reviews, id: id} );
+        })
+        .then( () => {
+          console.log("Success");
+        })
+        .catch( (error) => {
+          console.log("Failure", error);
         })
       })
     })
 
 
 app.post("/products/:id", (req, res) => {
-  const id = req.params.id
+  let id = req.params.id;
   knex('reviews').insert({
       product_id: req.params.id,
       description: req.body.description,

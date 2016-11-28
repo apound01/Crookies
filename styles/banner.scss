@@ -12,13 +12,14 @@
   background-size: cover;
 
   /* Set up positioning */
-  position: fixed;
+  position: relative;;
   top: 0;
   left: 0;
 }
 
 .banner h1 {
-  position: fixed;
+  position: absolute;;
+  overflow: auto;
   color: white;
   font-family: helvetica;
   text-align: center;
@@ -33,5 +34,9 @@
 @media screen and (max-width: 600px) {
   .banner-container {
     height: 300px;
+  }
+  .banner h1 {
+    overflow: auto;
+    text-align: center;
   }
 }

@@ -9,24 +9,23 @@ $(document).ready( function() {
       for(let product in cart['products'] ) {
 
         let subtotal = Math.round((cart['products'][product].quantity * cart['products'][product].price) * 100) / 100 ;
-        // total += subtotal;
-        // total = Math.round(total * 100) / 100;
         new Promise( function(response, reject) {
-          $(".panel-body.products").append(`<tr>
-                             <td data-th="Product">
-                             <div class="row">
-                             <div class="col-sm-2 hidden-xs"><img src="${cart['products'][product].image}" alt="..." class="img-responsive"/></div>
-                             <div class="col-sm-10">
-                             <h4 class="nomargin">${cart['products'][product].name}</h4>
-                             </div>
-                             </div>
-                             <br>
-                             </td>
-                             <td data-th="Price">$${cart['products'][product].price}</td>
-                             <td data-th="Quantity">${cart['products'][product].quantity}
-                             </td>
-                             <td data-th="Subtotal" class="text-center">$${subtotal}</td>
-                             </tr>`)
+          $(".panel-body.products")
+          .append(`<tr>
+                    <td data-th="Product">
+                      <div class="row">
+                      <div class="col-sm-2 hidden-xs"><img src="${cart['products'][product].image}" alt="..." class="img-responsive"/></div>
+                        <div class="col-sm-10">
+                          <h4 class="nomargin">${cart['products'][product].name}</h4>
+                        </div>
+                      </div>
+                    <br>
+                    </td>
+                    <td data-th="Price">$${cart['products'][product].price}</td>
+                      <td data-th="Quantity">${cart['products'][product].quantity}
+                      </td>
+                      <td data-th="Subtotal" class="text-center">$${subtotal}</td>
+                    </tr>`)
         })
       }
     } else {
@@ -87,7 +86,6 @@ $(document).ready( function() {
   })
 
   $("#paynow").on("click", function() {
-
     let orderinfo = {};
     let cart = localStorage.getItem("cart");
 
@@ -112,11 +110,6 @@ $(document).ready( function() {
         window.location.href = "/";
       }
     });
-
-
-    // get all values from forms
-    // get data out of local storage
-    // send back single hash with both infos with AJAX
   })
 
 })

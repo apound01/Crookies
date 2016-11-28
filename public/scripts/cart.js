@@ -3,6 +3,16 @@ $(document).ready( function() {
   let cart = {};
   let total = 0;
 
+  const getTotal = (products) => {
+    let total = 0;
+    for(let product in products) {
+      let subtotal = Math.round((products[product].quantity * products[product].price) * 100) / 100 ;
+      total += subtotal;
+      total = Math.round(total * 100) / 100;
+    }
+    return total;
+  }
+
   const renderCart = () => {
     if(localStorage.getItem("cart")) {
       cart = JSON.parse(localStorage.getItem("cart"));
@@ -12,26 +22,27 @@ $(document).ready( function() {
         // total += subtotal;
         // total = Math.round(total * 100) / 100;
         new Promise( function(response, reject) {
-          $("tbody").append(`<tr>
-                             <td data-th="Product">
-                             <div class="row">
-                             <div class="col-sm-2 hidden-xs"><img src="${cart['products'][product].image}" alt="..." class="img-responsive"/></div>
-                             <div class="col-sm-10">
+          $("tbody")
+          .append(`<tr>
+                     <td data-th="Product">
+                       <div class="row">
+                         <div class="col-sm-2 hidden-xs"><img src="${cart['products'][product].image}" alt="..." class="img-responsive"/></div>
+                         <div class="col-sm-10">
                              <h4 class="nomargin">${cart['products'][product].name}</h4>
                              <p>${cart['products'][product].description}</p>
-                             </div>
-                             </div>
-                             </td>
-                             <td data-th="Price">$${cart['products'][product].price}</td>
-                             <td data-th="Quantity">
-                             <input type="number" id="item-quantity-${product}" class="form-control text-center" value="${cart['products'][product].quantity}">
-                             </td>
-                             <td data-th="Subtotal" class="text-center">$${subtotal}</td>
-                             <td class="actions" data-th="">
-                             <button class="btn btn-info btn-sm refresh"><i class="fa fa-refresh"></i></button>
-                             <button id="item-${product}" data-item-id="${product}" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-o"></i></button>
-                             </td>
-                             </tr>`)
+                         </div>
+                      </div>
+                    </td>
+                    <td data-th="Price">$${cart['products'][product].price}</td>
+                      <td data-th="Quantity">
+                        <input type="number" id="item-quantity-${product}" class="form-control text-center" value="${cart['products'][product].quantity}">
+                      </td>
+                      <td data-th="Subtotal" class="text-center">$${subtotal}</td>
+                      <td class="actions" data-th="">
+                        <button class="btn btn-info btn-sm refresh"><i class="fa fa-refresh"></i></button>
+                        <button id="item-${product}" data-item-id="${product}" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-o"></i></button>
+                      </td>
+                    </tr>`)
         })
       }
     } else {
@@ -64,6 +75,7 @@ $(document).ready( function() {
       localStorage.removeItem("cart");
       location.reload();
     } else {
+      cart['total'] = getTotal(cart['products']);
       let jsonString = JSON.stringify(cart);
       if(localStorage.getItem("cart") !== jsonString) {
         localStorage.setItem("cart", jsonString);
@@ -83,6 +95,7 @@ $(document).ready( function() {
       localStorage.removeItem("cart");
       renderCart();
     } else {
+      cart['total'] = getTotal(cart['products']);
       let jsonString = JSON.stringify(cart);
       if(localStorage.getItem("cart") !== jsonString) {
         localStorage.setItem("cart", jsonString);

@@ -120,14 +120,7 @@ app.post("/checkout", (req, res) => {
     shipping_country: req.body.orderinfo.country,
     note: req.body.orderinfo.note
   }).then( (result) => {
-
-
     for(let product in cart.products) {
-      console.log("YAAASSSSS");
-      console.log("result", result[0]);
-      console.log("product", product);
-      console.log("quantity", cart.products[product].quantity);
-
       knex("line_items").insert({
         order_id: result[0],
         product_id: product,
@@ -135,8 +128,6 @@ app.post("/checkout", (req, res) => {
         product_name: cart.products[product].name,
         unit_price: cart.products[product].price,
         subtotal: (Math.round((cart.products[product].quantity * cart.products[product].price) * 100) / 100)
-      }).then ( () =>{
-        console.log("Line item insert worked!");
       })
     }
   })

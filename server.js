@@ -20,9 +20,8 @@ const productsRoutes = require("./routes/products");
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
-const stripeApiKey = "...";
-const stripeApiKeyTesting = "..."
-const stripe = require('stripe')(stripeApiKey);
+
+const stripe = require("stripe")("pk_test_nA2ImgLsFYl7lUGcafpZnbVN");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -129,22 +128,31 @@ app.get("/cart", (req, res) => {
   });
 })
 
+app.post('/charge', function(req, res) {
+  const token = req.body.stripeToken;
+  console.log(JSON.stringify(req.body + "****************"));
+  console.log("Your payment was successful")
+  res.redirect("/");
+});
+
+
 app.post("/checkout", (req, res) => {
   let cart = JSON.parse(req.body.cart);
+  console.log("**********************************",req.body);
   knex('orders')
   .returning('id')
   .insert({
     total_price: cart.total,
-    // stripe charge id
-    first_name: req.body.orderinfo.first_name,
-    last_name: req.body.orderinfo.last_name,
-    email: req.body.orderinfo.email,
-    shipping_address: req.body.orderinfo.address,
-    shipping_city: req.body.orderinfo.city,
-    shipping_postalcode: req.body.orderinfo.postalcode,
-    shipping_province: req.body.orderinfo.province,
-    shipping_country: req.body.orderinfo.country,
-    note: req.body.orderinfo.note
+    stripe_charge_id: req.body.stripeToken,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.stripeEmail,
+    shipping_address: req.body.shipping_address,
+    shipping_city: req.body.shipping_city,
+    shipping_postalcode: req.body.shipping_postalcode,
+    shipping_province: req.body.shipping_province,
+    shipping_country: req.body.shipping_country,
+    note: req.body.note
   }).then( (result) => {
     for(let product in cart.products) {
       knex("line_items").insert({
@@ -168,29 +176,9 @@ app.post("/checkout", (req, res) => {
     inserted: true
   })
   .then(() => {
-    res.send();
+    res.redirect("/");
   });
 })
-
-app.post("/plans/browserling_developer", function(req, res) {
-  stripe.customers.create({
-    card : req.body.stripeToken,
-    email : "...", // customer's email (get it from db or session)
-    plan : "browserling_developer"
-  }, function (err, customer) {
-    if (err) {
-      var msg = customer.error.message || "unknown";
-      res.send("Error while processing your payment: " + msg)
-    }
-    else {
-      var id = customer.id;
-      console.log('Success! Customer with Stripe ID ' + id + ' just signed up!');
-      // save this customer to your database here!
-      res.send('ok');
-    }
-  });
-});
-
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

@@ -3,9 +3,23 @@ $(document).ready( function() {
   let cart = {};
   let total = 0;
 
+  // $().append(`<script
+  // src = "http://checkout.stripe.com/checkout.js"
+  // class ="stripe-button"
+  // data-key = "pk_test_nA2ImgLsFYl7lUGcafpZnbVN"
+  // data-amount = "${JSON.}"
+  // data-name = "Christmas Crookies"
+  // data-description = "Input card information here:"
+  // data-locale = "auto"
+  // data-currency = "cad">
+  // </script>`)
+
+
+
   const renderCart = () => {
     if(localStorage.getItem("cart")) {
       cart = JSON.parse(localStorage.getItem("cart"));
+      $("#invisible-cart").val(localStorage.getItem("cart"));
       for(let product in cart['products'] ) {
 
         let subtotal = Math.round((cart['products'][product].quantity * cart['products'][product].price) * 100) / 100 ;
@@ -85,31 +99,56 @@ $(document).ready( function() {
     }
   })
 
-  $("#paynow").on("click", function() {
-    let orderinfo = {};
-    let cart = localStorage.getItem("cart");
-
-    orderinfo['total_price'] = cart.total;
-    orderinfo['email'] = $('#email').val();
-    orderinfo['first_name'] = $('#first_name').val();
-    orderinfo['last_name'] = $('#last_name').val();
-    orderinfo['address'] = $('#shipping_address').val();
-    orderinfo['city'] = $('#shipping_city').val();
-    orderinfo['postalcode'] = $('#shipping_postalcode').val();
-    orderinfo['province'] = $('#shipping_province option:selected').text().trim();
-    orderinfo['country'] = $('#shipping_country option:selected').text().trim();
-    orderinfo['note'] = $('#message').val().trim();
-
-    $.ajax({
-      method: "POST",
-      url: "/checkout",
-      data: {"orderinfo": orderinfo,
-             "cart": cart},
-      success: function(data, textStatus) {
-        localStorage.clear();
-        window.location.href = "/";
-      }
-    });
+  let handler = StripeCheckout.configure({
+    key: "pk_test_nA2ImgLsFYl7lUGcafpZnbVN",
+    locale: "auto",
+    token: function(token){
+      console.log(token);
+      $("#payment-form").submit();
+    }
   })
+
+  $("#stripe-button").on("click", function(event){
+    handler.open({
+      amount: JSON.parse(localStorage.cart).total * 100,
+      name: "Christmas Crookies",
+      description: "Input card information here:",
+      currency: "cad"
+    })
+    event.preventDefault();
+  })
+
+  window.addEventListener('popstate', function() {
+    handler.close();
+  });
+
+  // $("#payment-form").submit(function(event) {
+  //   let orderinfo = {};
+  //   let cart = localStorage.getItem("cart");
+  //
+  //   console.log(cart);
+  //
+  //   orderinfo['total_price'] = cart.total;
+  //   // orderinfo['email'] = $('#email').val();
+  //   // orderinfo['first_name'] = $('#first_name').val();
+  //   // orderinfo['last_name'] = $('#last_name').val();
+  //   // orderinfo['address'] = $('#shipping_address').val();
+  //   // orderinfo['city'] = $('#shipping_city').val();
+  //   // orderinfo['postalcode'] = $('#shipping_postalcode').val();
+  //   // orderinfo['province'] = $('#shipping_province option:selected').text().trim();
+  //   // orderinfo['country'] = $('#shipping_country option:selected').text().trim();
+  //   // orderinfo['note'] = $('#message').val().trim();
+  //
+  //   $.ajax({
+  //     method: "POST",
+  //     url: "/checkout",
+  //     data: {"orderinfo": orderinfo,
+  //            "cart": cart},
+  //     success: function(data, textStatus) {
+  //       localStorage.clear();
+  //       window.location.href = "/";
+  //     }
+  //   });
+  // })
 
 })

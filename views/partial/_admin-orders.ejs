@@ -2,69 +2,66 @@
   <table id="cart" class="table table-hover table-condensed">
             <thead>
             <tr>
-              <th style="width:10%"></th>
-              <th style="width:15%"></th>
+              <th style="width:8%"></th>
+              <th style="width:12%"></th>
               <th style="width:15%"></th>
               <th style="width:20%"></th>
               <th style="width:10%"></th>
               <th style="width:10%"></th>
               <th style="width:10%"></th>
               <th style="width:10%"></th>
+              <th style="width:5%"></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td data-th="Order ID"><%= order.id %>
-                <div class="row">
-                  <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
-                  <div class="col-sm-10">
-                    <h4 class="nomargin"></h4>
-                </div>
+              <td data-th="Order ID"><h5><%= order.id %></h5>
               </td>
-              <td data-th="Client"><%= order.first_name %> <%= order.last_name %></td>
+              <td data-th="Client"><h5><%= order.first_name %> <%= order.last_name %></h5></td>
               <td data-th="Shipping Information">
-                  <%= order.shipping_address %></br>
-                  <%= order.shipping_city %></br>
-                  <%= order.shipping_postalcode %></br>
-                  <%= order.shipping_country %>
+                  <strong><%= order.shipping_address %></strong></h5></br>
+                  <strong><%= order.shipping_city %></strong></br>
+                  <strong><%= order.shipping_postalcode %></strong></br>
+                  <strong><%= order.shipping_country %></strong>
               </td>
               <td data-th="Product">
                 <% for (i in line_items) { %>
                 <% if (line_items[i].order_id === order.id) { %>
-                <%= line_items[i].product_name %></br>
+                <strong><%= line_items[i].product_name %><strong></br>
                 <% } %>
                 <% }; %>
               </td>
               <td data-th="Quantity">
                 <% for (i in line_items) { %>
                 <% if (line_items[i].order_id === order.id) { %>
-                <%= line_items[i].quantity %></br>
+                <strong><%= line_items[i].quantity %><strong></br>
                 <% } %>
                 <% }; %>
               </td>
               <td data-th="Unit Price">
                 <% for (i in line_items) { %>
                 <% if (line_items[i].order_id === order.id) { %>
-                <%= line_items[i].unit_price %></br>
+                <strong><%= line_items[i].unit_price %><strong></br>
                 <% } %>
                 <% }; %>
               </td>
               <td data-th="subtotal">
                 <% for (i in line_items) { %>
                 <% if (line_items[i].order_id === order.id) { %>
-                <%= line_items[i].subtotal %></br>
+                <strong><%= line_items[i].subtotal %><strong></br>
                 <% } %>
                 <% }; %>
               </td>
-              <td data-th="Total"><%= order.total_price %></td>
+              <td data-th="Total"><strong><%= order.total_price %><strong></td>
+              <td><div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-success active">
+                  <input type="checkbox" autocomplete="off" checked>
+                  <span class="glyphicon glyphicon-ok"></span>
+              </td>
+                </label>
+              </div>
             </tr>
           </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="8" class="hidden-xs"></td>
-              <td class="hidden-xs text-center"></td>
-            </tr>
-          </tfoot>
         </table>
 </div>
 

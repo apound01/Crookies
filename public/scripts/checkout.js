@@ -3,19 +3,6 @@ $(document).ready( function() {
   let cart = {};
   let total = 0;
 
-  // $().append(`<script
-  // src = "http://checkout.stripe.com/checkout.js"
-  // class ="stripe-button"
-  // data-key = "pk_test_nA2ImgLsFYl7lUGcafpZnbVN"
-  // data-amount = "${JSON.}"
-  // data-name = "Christmas Crookies"
-  // data-description = "Input card information here:"
-  // data-locale = "auto"
-  // data-currency = "cad">
-  // </script>`)
-
-
-
   const renderCart = () => {
     if(localStorage.getItem("cart")) {
       cart = JSON.parse(localStorage.getItem("cart"));
@@ -53,6 +40,8 @@ $(document).ready( function() {
   }
 
   renderCart();
+
+  let myToken;
 
   cart = JSON.parse(localStorage.getItem("cart"));
 
@@ -104,6 +93,8 @@ $(document).ready( function() {
     locale: "auto",
     token: function(token){
       console.log(token);
+      myToken = token.id;
+      $("#invisible-token").val(myToken);
       $("#payment-form").submit();
     }
   })
@@ -111,6 +102,7 @@ $(document).ready( function() {
   $("#stripe-button").on("click", function(event){
     handler.open({
       amount: JSON.parse(localStorage.cart).total * 100,
+      email: $("#email").val(),
       name: "Christmas Crookies",
       description: "Input card information here:",
       currency: "cad"
@@ -121,34 +113,5 @@ $(document).ready( function() {
   window.addEventListener('popstate', function() {
     handler.close();
   });
-
-  // $("#payment-form").submit(function(event) {
-  //   let orderinfo = {};
-  //   let cart = localStorage.getItem("cart");
-  //
-  //   console.log(cart);
-  //
-  //   orderinfo['total_price'] = cart.total;
-  //   // orderinfo['email'] = $('#email').val();
-  //   // orderinfo['first_name'] = $('#first_name').val();
-  //   // orderinfo['last_name'] = $('#last_name').val();
-  //   // orderinfo['address'] = $('#shipping_address').val();
-  //   // orderinfo['city'] = $('#shipping_city').val();
-  //   // orderinfo['postalcode'] = $('#shipping_postalcode').val();
-  //   // orderinfo['province'] = $('#shipping_province option:selected').text().trim();
-  //   // orderinfo['country'] = $('#shipping_country option:selected').text().trim();
-  //   // orderinfo['note'] = $('#message').val().trim();
-  //
-  //   $.ajax({
-  //     method: "POST",
-  //     url: "/checkout",
-  //     data: {"orderinfo": orderinfo,
-  //            "cart": cart},
-  //     success: function(data, textStatus) {
-  //       localStorage.clear();
-  //       window.location.href = "/";
-  //     }
-  //   });
-  // })
 
 })

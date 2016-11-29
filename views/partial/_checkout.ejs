@@ -11,6 +11,7 @@
           <div class="shopping_cart">
             <form class="form-horizontal" role="form" action="/checkout" method="post" id="payment-form">
               <input type="hidden" id="invisible-cart" name="cart">
+              <input type="hidden" id="invisible-token" name="token">
                 <div class="panel-group" id="accordion">
                   <div class="panel panel-default">
                     <div class="panel-heading">
@@ -74,6 +75,18 @@
                       <table class="table table-striped" style="font-weight: bold;">
                         <tr>
                           <td style="width: 175px;">
+                            <label for="first_name">Email:</label>
+                          </td>
+                          <td>
+                            <input class="form-control"
+                                    id="email"
+                                    name="email"
+                                    required="required"
+                                    type="string"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="width: 175px;">
                             <label for="first_name">First Name:</label>
                           </td>
                           <td>
@@ -127,7 +140,7 @@
                           <td>
                             <input class="form-control"
                                     id="shipping_postalcode"
-                                    name="shipping_city"
+                                    name="shipping_postalcode"
                                     required="required"
                                     type="string"/>
                           </td>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Products</title>
+    <title><%= products[0].name%></title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -23,7 +23,6 @@
 
   <body>
     <% include ../views/partial/_header %>
-
     <% products.forEach( (product) => { %>
       <%- include('partial/_singleproduct', {product: product}); %>
       <% }); %>

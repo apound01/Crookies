@@ -16,6 +16,7 @@ $(document).ready( function() {
   const renderCart = () => {
     if(localStorage.getItem("cart")) {
       cart = JSON.parse(localStorage.getItem("cart"));
+      $("#total").append(`<strong>${cart.total}</strong>`)
       for(let product in cart['products'] ) {
 
         let subtotal = Math.round((cart['products'][product].quantity * cart['products'][product].price) * 100) / 100 ;
@@ -59,7 +60,6 @@ $(document).ready( function() {
 
   cart = JSON.parse(localStorage.getItem("cart"));
 
-  $("#total").append(`<strong>${cart.total}</strong>`)
 
   $(".refresh").on("click", function() {
     cart = JSON.parse(localStorage.getItem("cart"));

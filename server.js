@@ -92,23 +92,29 @@ app.get("/products", (rer, res) => {
 })
 
 app.get("/products/:id", (req, res) => {
-  id: req.params.id
+  let id = req.params.id;
   knex
   .select("id", "name", "description", "unit_price", "image")
-  .from("products").where('id', req.params.id)
+  .from("products").where('id', id)
   .then((products) => {
         knex
         .select("rating", "description")
         .from("reviews").where('product_id', req.params.id)
         .then((reviews) => {
-          res.render('single-product', {products: products, reviews: reviews} );
+          res.render('single-product', {products: products, reviews: reviews, id: id} );
+        })
+        .then( () => {
+          console.log("Success");
+        })
+        .catch( (error) => {
+          console.log("Failure", error);
         })
       })
     })
 
 
 app.post("/products/:id", (req, res) => {
-  const id = req.params.id
+  let id = req.params.id;
   knex('reviews').insert({
       product_id: req.params.id,
       description: req.body.description,
@@ -123,30 +129,20 @@ app.post("/products/:id", (req, res) => {
   })
 
 app.get("/cart", (req, res) => {
-  res.render("cart", {
-
-  });
+  res.render("cart");
 })
-
-app.post('/charge', function(req, res) {
-  const token = req.body.stripeToken;
-  console.log(JSON.stringify(req.body + "****************"));
-  console.log("Your payment was successful")
-  res.redirect("/");
-});
-
 
 app.post("/checkout", (req, res) => {
   let cart = JSON.parse(req.body.cart);
-  console.log("**********************************",req.body);
+  console.log(req.body);
   knex('orders')
   .returning('id')
   .insert({
     total_price: cart.total,
-    stripe_charge_id: req.body.stripeToken,
+    stripe_charge_id: req.body.token,
     first_name: req.body.first_name,
     last_name: req.body.last_name,
-    email: req.body.stripeEmail,
+    email: req.body.email,
     shipping_address: req.body.shipping_address,
     shipping_city: req.body.shipping_city,
     shipping_postalcode: req.body.shipping_postalcode,
@@ -154,6 +150,7 @@ app.post("/checkout", (req, res) => {
     shipping_country: req.body.shipping_country,
     note: req.body.note
   }).then( (result) => {
+    console.log("Inserted new order.");
     for(let product in cart.products) {
       knex("line_items").insert({
         order_id: result[0],
@@ -167,7 +164,6 @@ app.post("/checkout", (req, res) => {
         console.log("Inserted item into line_items.");
       })
       .catch((error) => {
-        console.log("STARTED FROM THE BOTTOM");
         console.log(error);
       })
     }
@@ -176,8 +172,31 @@ app.post("/checkout", (req, res) => {
     inserted: true
   })
   .then(() => {
-    res.redirect("/");
+    res.redirect("/checkout/receipt");
   });
+})
+
+app.post("/plans/browserling_developer", function(req, res) {
+  stripe.customers.create({
+    card : req.body.stripeToken,
+    email : "...", // customer's email (get it from db or session)
+    plan : "browserling_developer"
+  }, function (err, customer) {
+    if (err) {
+      var msg = customer.error.message || "unknown";
+      res.send("Error while processing your payment: " + msg)
+    }
+    else {
+      var id = customer.id;
+      console.log('Success! Customer with Stripe ID ' + id + ' just signed up!');
+      // save this customer to your database here!
+      res.send('ok');
+    }
+  });
+});
+
+app.get("/checkout/receipt", function(req, res) {
+  res.render("receipt");
 })
 
 app.listen(PORT, () => {

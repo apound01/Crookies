@@ -47,6 +47,12 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
+let custom_cookies = { "spicy": { title: "Extra Spicy Crookie",
+                                  description: "A funky blend of tabasco sauce and wasabi blend perfectly together to create a unforgettable mouthful",
+                                  unit_price: 4.99
+                                }
+}
+
 const authenticate = (req, res, next) => {
   const auth = require('basic-auth');
   const user = auth(req);
@@ -111,6 +117,19 @@ app.get("/products/:id", (req, res) => {
         })
       })
     })
+
+app.post("/custom", (req, res) => {
+  let flavour = req.body.flavour;
+  if( flavour === "spicy"){
+    res.render('spicy', {spicy: spicy});
+  } else if(flavour === "salty"){
+    res.render('salty', {salty: salty});
+  } else if(flavour === "sour"){
+    res.render('sour', {sour: sour});
+  } else if(flavour === "bitter"){
+    res.render('spicy', {spicy: spicy});
+  }
+})
 
 
 app.post("/products/:id", (req, res) => {

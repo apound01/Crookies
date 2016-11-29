@@ -127,7 +127,6 @@ app.post("/products/:id", (req, res) => {
 
 app.get("/cart", (req, res) => {
   res.render("cart", {
-
   });
 })
 
@@ -192,6 +191,10 @@ app.post("/plans/browserling_developer", function(req, res) {
     }
   });
 });
+
+app.get("/checkout/receipt", function(req, res) {
+  res.render("receipt");
+})
 
 
 app.listen(PORT, () => {

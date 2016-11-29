@@ -25,7 +25,6 @@
     <% include ../views/partial/_header %>
     <% products.forEach( (product) => { %>
       <%- include('partial/_singleproduct', {product: product}); %>
-      <h1>GEEEE<%= products[0]["price"] %></h1>
       <% }); %>
 
       <% reviews.forEach( (review) => { %>

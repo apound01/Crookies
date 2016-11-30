@@ -104,7 +104,7 @@ $(document).ready( function() {
       amount: JSON.parse(localStorage.cart).total * 100,
       email: $("#email").val(),
       name: "Christmas Crookies",
-      description: "Input card information here:",
+      description: "Input card information below:",
       currency: "cad"
     })
     event.preventDefault();

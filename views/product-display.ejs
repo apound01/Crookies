@@ -26,12 +26,12 @@
       <form action="/custom" method="post">
         <select class="form-control"
                   name="flavour">
-                  <option value="Spicy">Extra Spicy</option>
-                  <option value="Salty">Extra Salty</option>
-                  <option value="Sour">Extra Sour</option>
-                  <option value="Bitter">Extra Bitter</option>
+                  <option value="Extra Spicy Crookie">Extra Spicy</option>
+                  <option value="Extra Salty Crookie">Extra Salty</option>
+                  <option value="Extra Sour Crookie">Extra Sour</option>
+                  <option value="Extra Bitter Crookie">Extra Bitter</option>
         </select>
-        <button type="submit" class="btn btn-big">Custom Crookie</button>
+        <button type="submit" class="btn btn-success btn-lg btn-block">Custom Crookie</button>
       </form>
         <% products.forEach( (product) => { %>
           <%- include('partial/_product', {product: product}); %>

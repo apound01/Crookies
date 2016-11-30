@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= product[0].name%></title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/single_product.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/custom.css"type="text/css" />
+
+   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="/scripts/app.js"></script>
+   <script type="text/javascript" src="/scripts/custom.js"></script>
+   <script type="text/javascript" src="/scripts/bootstrap.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+   <script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  </head>
+
+  <body>
+    <% include ../views/partial/_header %>
+  </br>
+  </br>
+  </br>
+  </br>
+  </br>
+  </br>
+  <div class="container">
+    <div class="row product">
+      <div class="col-md-5 col-md-offset-0">
+
+        <div id="image-panel">
+          <img id="image"
+              src="<%= product[0].image %>"
+              data-item-id="<%= product[0].id %>",
+              data-item-image="<%= product[0].image %>"
+              class="img" alt="Product Image" />
+              <textarea maxlength="50" id="on-image"></textarea>
+        </div>
+
+      </div>
+      <div class="col-md-7">
+        <h2 id="item-title"
+                class="title"
+                data-item-name="<%= product[0].name %>"
+                data-item-id="<%= product[0].id %>"><%= product[0].name %></h2>
+        <p id="description" data-item-description="<%= product[0].description%>">
+          <%= product[0].description %></p>
+        <select id="quantity-selected">
+          <option value selected>Choose Quantity</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+            <option value="6">6</option>
+            <option value="12">12</option>
+        </select>
+        <br>
+        <br>
+        <textarea id="textarea" maxlength="50"placeholder="[ Enter text for crookie here! ]"></textarea>
+        <h3 id="price"
+            data-item-price="<%= product[0].unit_price %>">
+            $<%= product[0].unit_price %></h3>
+        <button class="btn btn-primary" type="button">
+          Add to cart</button>
+          <div id="alert" class="alert alert-success" role="alert">
+            <span>
+              <strong>Added to cart!</strong>
+            </span>
+          </div>
+      </div>
+      </div>
+    </div>
+
+
+  <h1 class='break'>  </h1>
+  </body>
+
+  <footer>
+  <% include ../views/partial/_footer %>
+  </footer>
+</html>

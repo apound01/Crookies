@@ -20,9 +20,8 @@ const productsRoutes = require("./routes/products");
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
-const stripeApiKey = "...";
-const stripeApiKeyTesting = "..."
-const stripe = require('stripe')(stripeApiKey);
+
+const stripe = require("stripe")("pk_test_nA2ImgLsFYl7lUGcafpZnbVN");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -48,6 +47,12 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
+let custom_cookies = { "spicy": { title: "Extra Spicy Crookie",
+                                  description: "A funky blend of tabasco sauce and wasabi blend perfectly together to create a unforgettable mouthful",
+                                  unit_price: 4.99
+                                }
+}
+
 const authenticate = (req, res, next) => {
   const auth = require('basic-auth');
   const user = auth(req);
@@ -67,12 +72,17 @@ app.get("/", (req, res) => {
 
 app.get("/admin", authenticate, (req, res) => {
   knex
-  .select("*")
-  .from("orders")
-  .then((orders) => {
-    res.render('admin', {orders: orders} );
-  })
-});
+    .select("*")
+    .from("orders")
+    .then((orders) => {
+      knex
+      .select("*")
+      .from("line_items")
+      .then((line_items) => {
+        res.render('admin', {orders: orders, line_items: line_items} );
+      })
+    })
+  });
 
 app.get("/checkout", (req, res) => {
     res.render("checkout");
@@ -88,23 +98,42 @@ app.get("/products", (rer, res) => {
 })
 
 app.get("/products/:id", (req, res) => {
-  id: req.params.id
+  let id = req.params.id;
   knex
   .select("id", "name", "description", "unit_price", "image")
-  .from("products").where('id', req.params.id)
+  .from("products").where('id', id)
   .then((products) => {
         knex
         .select("rating", "description")
         .from("reviews").where('product_id', req.params.id)
         .then((reviews) => {
-          res.render('single-product', {products: products, reviews: reviews} );
+          res.render('single-product', {products: products, reviews: reviews, id: id} );
+        })
+        .then( () => {
+          console.log("Success");
+        })
+        .catch( (error) => {
+          console.log("Failure", error);
         })
       })
     })
 
+app.post("/custom", (req, res) => {
+  let flavour = req.body.flavour;
+  if( flavour === "spicy"){
+    res.render('spicy', {spicy: spicy});
+  } else if(flavour === "salty"){
+    res.render('salty', {salty: salty});
+  } else if(flavour === "sour"){
+    res.render('sour', {sour: sour});
+  } else if(flavour === "bitter"){
+    res.render('spicy', {spicy: spicy});
+  }
+})
+
 
 app.post("/products/:id", (req, res) => {
-  const id = req.params.id
+  let id = req.params.id;
   knex('reviews').insert({
       product_id: req.params.id,
       description: req.body.description,
@@ -119,26 +148,50 @@ app.post("/products/:id", (req, res) => {
   })
 
 app.get("/cart", (req, res) => {
-  res.render("cart", {
-
-  });
+  res.render("cart");
 })
 
 app.post("/checkout", (req, res) => {
-  knex('orders').insert({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      email: req.body.email,
-      shipping_address: req.body.shipping_address,
-      shipping_city: req.body.shipping_city,
-      shipping_postalcode: req.body.shipping_postalcode,
-      shipping_country: req.body.shipping_country
+  let cart = JSON.parse(req.body.cart);
+  console.log(req.body);
+  knex('orders')
+  .returning('id')
+  .insert({
+    total_price: cart.total,
+    stripe_charge_id: req.body.token,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+    shipping_address: req.body.shipping_address,
+    shipping_city: req.body.shipping_city,
+    shipping_postalcode: req.body.shipping_postalcode,
+    shipping_province: req.body.shipping_province,
+    shipping_country: req.body.shipping_country,
+    note: req.body.note
+  }).then( (result) => {
+    console.log("Inserted new order.");
+    for(let product in cart.products) {
+      knex("line_items").insert({
+        order_id: result[0],
+        product_id: product,
+        quantity: cart.products[product].quantity,
+        product_name: cart.products[product].name,
+        unit_price: cart.products[product].price,
+        subtotal: (Math.round((cart.products[product].quantity * cart.products[product].price) * 100) / 100)
+      })
+      .then( () => {
+        console.log("Inserted item into line_items.");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
   })
   .return({
     inserted: true
   })
   .then(() => {
-    res.render("index");
+    res.redirect("/checkout/receipt");
   });
 })
 
@@ -161,6 +214,9 @@ app.post("/plans/browserling_developer", function(req, res) {
   });
 });
 
+app.get("/checkout/receipt", function(req, res) {
+  res.render("receipt");
+})
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

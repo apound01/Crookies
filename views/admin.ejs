@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/banner.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/product_layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/admin.css" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -27,19 +26,21 @@
   </br>
 </br>
 </br>
-</br>
-</br>
+
   <div class="container">
+    <h1>Customer Orders</h1></br>
   	<table id="cart" class="table table-hover table-condensed">
       				<thead>
   						<tr>
-  							<th style="width:10%">Order ID</th>
-  							<th style="width:20%">Client</th>
-  							<th style="width:20%">Shipping Information</th>
-  							<th style="width:20%">Product</th>
-  							<th style="width:10%">Quantity</th>
-                <th style="width:10%">Unit Price</th>
-                <th style="width:10%">Total</th>
+  							<th style="width:8%"><h4>Order ID</th>
+  							<th style="width:12%"><h4>Client</th>
+  							<th style="width:15%"><h4>Address</th>
+  							<th style="width:20%"><h4>Product</th>
+  							<th style="width:10%"><h4>Quantity</th>
+                <th style="width:10%"><h4>Unit Price</th>
+                <th style="width:10%"><h4>Subtotal</th>
+                <th style="width:10%"><h4>Total</th>
+                <th style="width:5%"><h4>Shipped</th>
   						</tr>
   					</thead>
   				</table>
@@ -48,6 +49,9 @@
     <% orders.forEach( (order) => { %>
       <%- include('partial/_admin-orders', {order: order}); %>
       <% }); %>
+    </br>
+    </br>
+    </br>
 
   </body>
   <footer>

@@ -1,46 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home</title>
+    <title>Order receipt</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/banner.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/product_layout.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/feature-product.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/reciept.css" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 
    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
    <script src="js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="/scripts/receipt.js"></script>
    <script type="text/javascript" src="/scripts/app.js"></script>
    <script type="text/javascript" src="/scripts/bootstrap.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
    <script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-   <% include ../views/partial/_header %>
   </head>
 
   <body>
-    <% include ../views/partial/_banner %>
-  </br>
-  </br>
-  </br>
-  </br>
-    <% include ../views/partial/_feature-product %>
-  </br>
-  </br>
-  </br>
-  </br>
-  <!-- SnapWidget -->
-<script src="https://snapwidget.com/js/snapwidget.js"></script>
-<iframe src="https://snapwidget.com/embed/294068" class="snapwidget-widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100%; "></iframe>
-</br>
-</br>
-</br>
+    <% include ../views/partial/_header %>
+    <main>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="jumbotron">
+        <img class="lights" src="/images/lights.png">
+        <div class="container receipt">
+          <h1 class="display-3">Order Confirmation</h1>
+          <h3 class="lead">Thanks for your order and Happy Holidays from the Crookies team! We hope our Crookies bring laughter and disgust to your holiday celebrations.</h3>
+        </br><strong><h4>*Please note we are not responsible for any loss of friendship.</h4><strong>
+          <hr class="m-y-md">
+          <div class="bg">
+                <a href="/products" class="button">Keep Shopping!</a>
+          </div>
+        </div>
+    </main>
+            <br/><br/><br/><br/>
+    <footer>
+      <% include ../views/partial/_footer %>
+    </footer>
   </body>
-  <footer>
-    <% include ../views/partial/_footer %>
-  </footer>
-</html>

@@ -1,236 +1,203 @@
 <div class='container'>
-    <div class='row' style='padding-top:25px; padding-bottom:25px;'>
-        <div class='col-md-12'>
-            <div id='mainContentWrapper'>
-                <div class="col-md-8 col-md-offset-2">
-                    <h2 style="text-align: center;">
-                        Review Your Order and Complete Checkout
-                    </h2>
-                    <hr/>
-                    <a href="/products" class="btn btn-info" style="width: 100%;">Add More Products & Services</a>
-                    <hr/>
-                    <div class="shopping_cart">
-                        <form class="form-horizontal" role="form" action="" method="post" id="payment-form">
-                            <div class="panel-group" id="accordion">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Review
-                                                Your Order</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseOne" class="panel-collapse collapse in">
-                                        <div class="panel-body">
-                                            <div class="items">
-                                                <div class="col-md-9">
-                                                    <table class="table table-striped">
-                                                        <tr>
-                                                            <td colspan="2">
-                                                                <a class="btn btn-warning btn-sm pull-right"
-                                                                   href=""
-                                                                   title="Remove Item">X</a>
-                                                                <b>
-                                                                    Premium Posting</b></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <ul>
-                                                                    <li>One Job Posting Credit</li>
-                                                                    <li>Job Distribution*</li>
-                                                                    <li>Social Media Distribution</li>
-                                                                </ul>
-                                                            </td>
-                                                            <td>
-                                                                <b>$147.00</b>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div style="text-align: center;">
-                                                        <h3>Order Total</h3>
-                                                        <h3><span style="color:green;">$147.00</span></h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <div style="text-align: center; width:100%;"><a style="width:100%;"
-                                                                                        data-toggle="collapse"
-                                                                                        data-parent="#accordion"
-                                                                                        href="#collapseTwo"
-                                                                                        class=" btn btn-success"
-                                                                                        onclick="$(this).fadeOut(); $('#payInfo').fadeIn();">Continue
-                                            to Billing Information»</a></div>
-                                    </h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Contact
-                                            and Billing Information</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseTwo" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <b>Help us keep your account safe and secure, please verify your billing
-                                            information.</b>
-                                        <br/><br/>
-                                        <table class="table table-striped" style="font-weight: bold;">
-                                            <tr>
-                                                <td style="width: 175px;">
-                                                    <label for="email">Email:</label></td>
-                                                <td>
-                                                    <input class="form-control" id="email" name="email"
-                                                           required="required" type="string"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 175px;">
-                                                    <label for="first_name">First Name:</label></td>
-                                                <td>
-                                                    <input class="form-control" id="first_name" name="first_name"
-                                                           required="required" type="string"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 175px;">
-                                                    <label for="last_name">Last Name:</label></td>
-                                                <td>
-                                                    <input class="form-control" id="last_name" name="last_name"
-                                                           required="required" type="string"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 175px;">
-                                                    <label for="id_address_line_1">Address:</label></td>
-                                                <td>
-                                                    <input class="form-control" id="shipping_address"
-                                                           name="shipping_address" required="required" type="string"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 175px;">
-                                                    <label for="shipping_city">City:</label></td>
-                                                <td>
-                                                    <input class="form-control" id="shipping_city" name="shipping_city"
-                                                           required="required" type="string"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 175px;">
-                                                    <label for="shipping_province">Province:</label></td>
-                                                <td>
-                                                    <select class="form-control" id="shipping_province" name="shipping_province">
-                                                        <option value="AB">Alberta</option>
-                                                        <option value="BC">British Columbia</option>
-                                                        <option value="MB">Manitoba</option>
-                                                        <option value="NL">Newfoundland and Labrador</option>
-                                                        <option value="NT">Northwest Territories</option>
-                                                        <option value="NS">Nova Scotia</option>
-                                                        <option value="NU">Nunavut</option>
-                                                        <option value="ON">Ontario</option>
-                                                        <option value="PE">Prince Edward Island</option>
-                                                        <option value="QC">Quebec</option>
-                                                        <option value="SK">Saskatchewan</option>
-                                                        <option value="YT">Yukon</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 175px;">
-                                                    <label for="shipping_postalcode">Postal Code:</label></td>
-                                                <td>
-                                                    <input class="form-control" id="shipping_postalcode" name="shipping_postalcode"
-                                                           required="required" type="string"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 175px;">
-                                                    <label for="shipping_country">Country:</label></td>
-                                                <td>
-                                                    <select class="form-control" id="shipping_country" name="shipping_country">
-                                                        <option value="CA">Canada</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                          <button type="submit" class="btn btn-success btn-lg" style="width:100%;">
-                                            Pay Now
-                                           </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-
-                                        <!-- <div style="text-align: center;"><a data-toggle="collapse"
-                                                                            data-parent="#accordion"
-                                                                            href="#collapseThree"
-                                                                            class=" btn   btn-success" id="payInfo"
-                                                                            style="width:100%;display: none;" onclick="$(this).fadeOut();
-                   document.getElementById('collapseThree').scrollIntoView()">Enter Payment Information »</a> -->
-                                        </div>
-                                    </h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                            <b>Payment Information</b>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseThree" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <span class='payment-errors'></span>
-                                        <fieldset>
-                                          <div id="stripe-form">
-  <form action="/plans/browserling_developer" method="POST" id="payment-form">
-    <div class="form-row">
-      <div class="cc-text">Card Number</div>
-      <input type="text" size="30" autocomplete="off" class="card-number"/>
-    </div>
-    <div class="form-row">
-      <div class="cc-text">CVC</div>
-      <input type="text" size="4" autocomplete="off" class="card-cvc"/>
-    </div>
-    <div class="form-row">
-      <div class="cc-text">Expiration (MM/YYYY)</div>
-      <input type="text" size="2" class="card-expiry-month"/>
-      <span> / </span>
-      <input type="text" size="4" class="card-expiry-year"/>
-    </div>
-    <input type="hidden" name="amount" value="2000" id="cc-amount">
-    <button type="submit" class="submit-button">Submit Payment</button>
-  </form>
-</div>
-<div id="error" class="hidden"></div>
-<div id="success" class="hidden">Thanks for signing up at Browserling!</div>
-                                        </fieldset>
-
-                                        <br/>
-                                        <div style="text-align: left;"><br/>
-                                            By submiting this order you are agreeing to our <a href="/legal/billing/">universal
-                                                billing agreement</a>, and <a href="/legal/terms/">terms of service</a>.
-                                            If you have any questions about our products or services please contact us
-                                            before placing this order.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+  <div class='row' style='padding-top:25px; padding-bottom:25px;'>
+    <div class='col-md-12'>
+      <div id='mainContentWrapper'>
+        <div class="col-md-8 col-md-offset-2">
+          <h2 style="text-align: center;">
+            Complete Checkout</h2>
+          <hr/>
+          <a href="/products" class="btn btn-info" style="width: 100%;">Add More Products & Services</a>
+          <hr/>
+          <div class="shopping_cart">
+            <form class="form-horizontal" role="form" action="/checkout" method="post" id="payment-form">
+              <input type="hidden" id="invisible-cart" name="cart">
+              <input type="hidden" id="invisible-token" name="token">
+                <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Review
+                          Your Order</a>
+                      </h4>
                     </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                        <table class="table table-hover table-condensed">
+                          <thead class="panel-body products">
+                            <tr>
+                              <th style="width:50%">Product</th>
+                              <th style="width:10%">Price</th>
+                              <th style="width:8%">Quantity</th>
+                              <th style="width:22%" class="text-center">Subtotal</th>
+                              <th style="width:10%"></th>
+                            </tr>
+                          </thead>
+                        </table>
+                        <div class="items">
+                          <div class="col-md-3">
+                            <div style="text-align: center;">
+                              <h3>Order Total</h3>
+                              <h3><span id="total" style="color:green;">$</span></h3>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                </form>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <div style="text-align: center; width:100%;">
+                        <a style="width:100%;"
+                            data-toggle="collapse"
+                            data-parent="#accordion"
+                            href="#collapseTwo"
+                            class=" btn btn-success"
+                            onclick="$(this).fadeOut(); $('#payInfo').fadeIn();">
+                            Continue to Billing Information»</a>
+                      </div>
+                    </h4>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                        Contact and Billing Information</a>
+                    </h4>
+                  </div>
+                  <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <b>Help us keep your account safe and secure, please verify your billing information.</b>
+                      <br/>
+                      <br/>
+                      <table class="table table-striped" style="font-weight: bold;">
+                        <tr>
+                          <td style="width: 175px;">
+                            <label for="first_name">Email:</label>
+                          </td>
+                          <td>
+                            <input class="form-control"
+                                    id="email"
+                                    name="email"
+                                    required="required"
+                                    type="string"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="width: 175px;">
+                            <label for="first_name">First Name:</label>
+                          </td>
+                          <td>
+                            <input class="form-control"
+                                    id="first_name"
+                                    name="first_name"
+                                    required="required"
+                                    type="string"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="width: 175px;">
+                            <label for="last_name">Last Name:</label>
+                          </td>
+                          <td>
+                            <input class="form-control"
+                                    id="last_name"
+                                    name="last_name"
+                                    required="required"
+                                    type="string"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="width: 175px;">
+                            <label for="id_address_line_1">Address:</label>
+                          </td>
+                          <td>
+                            <input class="form-control"
+                                    id="shipping_address"
+                                    name="shipping_address"
+                                    required="required"
+                                    type="string"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="width: 175px;">
+                            <label for="shipping_city">City:</label>
+                          </td>
+                          <td>
+                            <input class="form-control"
+                                    id="shipping_city"
+                                    name="shipping_city"
+                                    required="required"
+                                    type="string"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="width: 175px;">
+                            <label for="shipping_postalcode">Postal code:</label>
+                          </td>
+                          <td>
+                            <input class="form-control"
+                                    id="shipping_postalcode"
+                                    name="shipping_postalcode"
+                                    required="required"
+                                    type="string"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="width: 175px;">
+                            <label for="shipping_province">Province:</label>
+                          </td>
+                          <td>
+                            <select class="form-control"
+                                      id="shipping_province"
+                                      name="shipping_province">
+                                      <option value="AB">Alberta</option>
+                                      <option value="BC">British Columbia</option>
+                                      <option value="MB">Manitoba</option>
+                                      <option value="NL">Newfoundland and Labrador</option>
+                                      <option value="NT">Northwest Territories</option>
+                                      <option value="NS">Nova Scotia</option>
+                                      <option value="NU">Nunavut</option>
+                                      <option value="ON">Ontario</option>
+                                      <option value="PE">Prince Edward Island</option>
+                                      <option value="QC">Quebec</option>
+                                      <option value="SK">Saskatchewan</option>
+                                      <option value="YT">Yukon</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="width: 175px;">
+                            <label for="shipping_country">Country:</label>
+                          </td>
+                          <td>
+                            <select class="form-control" id="shipping_country" name="shipping_country">
+                              <option value="CA">Canada</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="width: 175px;">
+                            <label for="shipping_postalcode">Message:</label>
+                          </td>
+                          <td>
+                            <textarea class="form-control" id="message" name="note" rows="6" type="string">
+                            </textarea>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <script src = "http://checkout.stripe.com/checkout.js">
+                    </script>
+                    <button class="btn btn-success" style="width: 94%; margin: 20px;" id="stripe-button">Pay</button>
+                  </div>
+                </div>
+              </div>
             </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>

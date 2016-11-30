@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Products</title>
+    <title>Crookies</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -20,8 +20,18 @@
   </head>
 
   <body>
-    <% include ../views/partial/_header %>
     <div class="product-list">
+      <% include ../views/partial/_header %>
+      <form action="/custom" method="post">
+        <select class="form-control"
+                  name="flavour">
+                  <option value="Spicy">Extra Spicy</option>
+                  <option value="Salty">Extra Salty</option>
+                  <option value="Sour">Extra Sour</option>
+                  <option value="Bitter">Extra Bitter</option>
+        </select>
+        <button type="submit" class="btn btn-big">Custom Crookie</button>
+      </form>
         <% products.forEach( (product) => { %>
           <%- include('partial/_product', {product: product}); %>
           <% }); %>

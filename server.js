@@ -48,10 +48,10 @@ app.use(express.static("public"));
 app.use("/api/users", usersRoutes(knex));
 
 let custom_cookies = { "spicy": { title: "Extra Spicy Crookie",
-                                  description: "A funky blend of tabasco sauce and wasabi blend perfectly together to create a unforgettable mouthful",
+                                  description: "",
                                   unit_price: 4.99
                                 }
-}
+                      }
 
 const authenticate = (req, res, next) => {
   const auth = require('basic-auth');
@@ -83,6 +83,22 @@ app.get("/admin", authenticate, (req, res) => {
       })
     })
   });
+
+app.post("/admin", (req, res) => {
+  let order_id = req.body.order_id;
+  let shipped = req.body.shipped;
+  if(shipped){
+    knex("orders")
+    .where("id", order_id)
+    .update("shipped", shipped)
+    .then( () => {
+      res.send();
+    })
+    .catch( (error) => {
+      console.log(error);
+    })
+  }
+})
 
 app.get("/checkout", (req, res) => {
     res.render("checkout");
@@ -120,15 +136,14 @@ app.get("/products/:id", (req, res) => {
 
 app.post("/custom", (req, res) => {
   let flavour = req.body.flavour;
-  if( flavour === "spicy"){
-    res.render('spicy', {spicy: spicy});
-  } else if(flavour === "salty"){
-    res.render('salty', {salty: salty});
-  } else if(flavour === "sour"){
-    res.render('sour', {sour: sour});
-  } else if(flavour === "bitter"){
-    res.render('spicy', {spicy: spicy});
-  }
+  console.log("*************************************", req.body);
+  knex("products")
+  .select("*")
+  .where("name", flavour)
+  .then( (product) => {
+    console.log("++++++++++++++++++++++++++++++++++++++++", product);
+    res.render('custom', {product: product});
+  })
 })
 
 
@@ -167,7 +182,8 @@ app.post("/checkout", (req, res) => {
     shipping_postalcode: req.body.shipping_postalcode,
     shipping_province: req.body.shipping_province,
     shipping_country: req.body.shipping_country,
-    note: req.body.note
+    message: req.body.message,
+    shipped: false
   }).then( (result) => {
     console.log("Inserted new order.");
     for(let product in cart.products) {
@@ -177,7 +193,8 @@ app.post("/checkout", (req, res) => {
         quantity: cart.products[product].quantity,
         product_name: cart.products[product].name,
         unit_price: cart.products[product].price,
-        subtotal: (Math.round((cart.products[product].quantity * cart.products[product].price) * 100) / 100)
+        subtotal: (Math.round((cart.products[product].quantity * cart.products[product].price) * 100) / 100),
+        crookie_note: cart.products[product].crookie_note
       })
       .then( () => {
         console.log("Inserted item into line_items.");

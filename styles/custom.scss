@@ -1,0 +1,29 @@
+#image-panel {
+
+  position: relative;
+
+  #image {
+    display: block;
+    width: 60em !important;
+    float: right;
+  }
+
+  #on-image {
+    border: none;
+    text-align: center;
+    color: black;
+    position: absolute;
+    font-weight: 700;
+    font-size: 50px;
+    top: 3em;
+    left: -3em;
+    height: 6em;
+    width: 7em;
+
+    background-color: rgba(255,255,255,0)
+  }
+}
+
+#textarea {
+  width: 40em;
+}

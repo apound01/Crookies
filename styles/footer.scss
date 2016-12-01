@@ -1,16 +1,19 @@
-.navbar-default .navbar-text {
-    color: white !important;
-    font-weight: 400;
+.footer1 {
+  background-color: #3C8D0D;
+  height: 50px;
+  width: 100%;
+  bottom: 0;
+  float:left;
 }
 
-.navbar-default .navbar-text a{
-    color: white !important;
-    font-weight: 400;
+.footer1 p {
+  color: white;
+  font-weight: 400;
+  padding-left: 50px
 }
-.navbar-default {
-  background-color: #3C8D0D !important;
-  height: 10px !important;
-  position: fixed;
-  bottom: 0;
-  float:left !important;
+
+.footer1 a{
+  color: white;
+  font-weight: 400;
+  padding-right: 50px
 }

@@ -1,46 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Home</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/banner.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/product_layout.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/feature-product.css" type="text/css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<head>
+  <title>Home</title>
 
-   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-   <script src="js/bootstrap.min.js"></script>
-   <script type="text/javascript" src="/scripts/app.js"></script>
-   <script type="text/javascript" src="/scripts/bootstrap.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
-   <script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/banner.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/product_layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/feature-product.css" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-   <% include ../views/partial/_header %>
-  </head>
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="/scripts/bootstrap.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+  <script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  <body>
-    <% include ../views/partial/_banner %>
-  </br>
-  </br>
-  </br>
-  </br>
+</head>
+
+<body>
+  <% include ../views/partial/_header %>
+
+  <img class="logo-header" src="/images/logo.png">
+  <% include ../views/partial/_banner %>
+  <div class="feature">
+    <h1><i class="fa fa-star-o" aria-hidden="true"></i> Featured Products</h1>
+  </div>
     <% include ../views/partial/_feature-product %>
-  </br>
-  </br>
-  </br>
-  </br>
-  <!-- SnapWidget -->
+      <div class="review">
+        <h1><strong> "</strong>I bought Christmas Crookies for my whole office and tricked everyone! It was such a great laugh seeing the look on everyones face when they bit into their cheese and anchovie flavoured Santa Crookies. Although I may have made some office enemies, it was completely worth it. I would definitely buy again!<strong> "</strong> - Sally, Toronto ON</h1>
+
+      </div>
+      <!-- SnapWidget -->
+      <div class ="instagram">
+        <h1><i class="fa fa-instagram" aria-hidden="true"></i> How did your friends react? #ChristmasCrookies</h1>
+      </div>
+      <!-- SnapWidget -->
+      <!-- SnapWidget -->
 <script src="https://snapwidget.com/js/snapwidget.js"></script>
 <iframe src="https://snapwidget.com/embed/294068" class="snapwidget-widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100%; "></iframe>
-</br>
-</br>
-</br>
-  </body>
-  <footer>
-    <% include ../views/partial/_footer %>
-  </footer>
+</body>
+<footer>
+  <% include ../views/partial/_footer %>
+</footer>
+
 </html>

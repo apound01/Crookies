@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
     <link rel="stylesheet" href="/styles/product_layout.css" type="text/css" />
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
    <script src="js/bootstrap.min.js"></script>
    <script type="text/javascript" src="/scripts/app.js"></script>
@@ -38,17 +36,15 @@
           <div id="light" class="white_content">
             <form action="/custom" method="post">
               </br>
-              <button class="btn btn-lg btn-danger" type="subit" value="Extra Spicy Crookie">Extra Spicy</button>
+              <button class="btn btn-lg btn-danger" type="subit" name="flavour" value="Custom XXXtra Spicy Crookie">XXXtra Spicy Crookie</button>
               </br>
-              <button class="btn btn-lg btn-success" type="subit" value="Extra Salty Crookie">Extra Salty</button>
+              <button class="btn btn-lg btn-success" type="subit" name="flavour" value="Custom Salty Crunch Crookie">Bite Your Tongue Salty</button>
               </br>
-              <button class="btn btn-lg btn-danger" type="subit" value="Extra Sour Crookie">Extra Sour</button>
-              </br>
-              <button class="btn btn-lg btn-success" type="subit" value="Extra Bitter Crookie">Extra Bitter</button>
+              <button class="btn btn-lg btn-danger" type="subit" name="flavour" value="Custom Super Sour Crookie">So Sour You'll Scour</button>
             </form>
-            <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';
+            <a id="blacker" href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';
                                                   document.getElementById('fade').style.display='none'">
-              Close</a>
+              ⬅ Back</a>
           </div>
           <div id="fade" class="black_overlay"></div>
         </div>

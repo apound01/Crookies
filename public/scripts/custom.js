@@ -48,7 +48,7 @@ $(document).ready( function() {
 
     if(!cart.products[id]) {
       cart['products'][id] = {
-        "name": "Custom " + name,
+        "name": name,
         "price": price,
         "quantity": quantity,
         "description": description,

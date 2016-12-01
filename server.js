@@ -136,12 +136,10 @@ app.get("/products/:id", (req, res) => {
 
 app.post("/custom", (req, res) => {
   let flavour = req.body.flavour;
-  console.log("*************************************", req.body);
   knex("products")
   .select("*")
   .where("name", flavour)
   .then( (product) => {
-    console.log("++++++++++++++++++++++++++++++++++++++++", product);
     res.render('custom', {product: product});
   })
 })

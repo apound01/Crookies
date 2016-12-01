@@ -11,6 +11,7 @@
   opacity: .80;
   filter: alpha(opacity=80);
 }
+
 .white_content {
   border-radius: 40px;
   display: none;
@@ -18,12 +19,20 @@
   top: 25%;
   left: 25%;
   width: 50%;
-  height: 35%;
   padding: 16px;
   border: 16px solid #CC9900;
   background-color: white;
   z-index: 1002;
   overflow: auto;
+}
+
+.img-responsive{
+  height: 300px !important;
+  width: 470px !important;
+}
+
+#blacker{
+  color: #000000;
 }
 
 .btn {
@@ -34,18 +43,16 @@
 .title{
   margin-top: -15px;
   color: #CC9900;
-  border-bottom: 1px solid black;
-  padding-bottom: 5px;
   font-family: georgia;
+}
+.details{
+  border-bottom: .75px solid black;
+  padding-bottom: 5px;
+
 }
 
 .img-responsive{
   padding: 1em;
-}
-
-#productbox{
-  padding-left: 10em;
-  padding-right: 10em;
 }
 
 /* font Awesome http://fontawesome.io*/
@@ -153,8 +160,8 @@ box-shadow: 0px -1px 26px 8px rgba(0,0,0,0.51);
 .col-item .price-details span {
   float:right;
 }
-.col-item .price-details .price-new {
-  font-size:16px;
+.price-new{
+  text-align: center;
 }
 .col-item .price-details .price-old {
   font-size:18px;

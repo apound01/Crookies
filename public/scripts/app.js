@@ -20,7 +20,7 @@ $(document).ready(function(){
     for(let product in cart['products']) {
       total_cart += Number(cart['products'][product]["quantity"]);
     }
-    $("#cart-items").text("Cart " + total_cart);
+    $("#cart-items").text(" Cart " + total_cart);
   }
 
   $(".btn.add-cart").on("click", function() {
@@ -47,6 +47,6 @@ $(document).ready(function(){
     cart['total'] = getTotal(cart['products']);
     let jsonString = JSON.stringify(cart);
     localStorage.setItem("cart", jsonString);
-    $("#cart-items").text("Cart "+total_cart);
+    $("#cart-items").text(" Cart "+total_cart);
   })
 })

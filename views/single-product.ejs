@@ -24,6 +24,7 @@
 
   <body>
     <% include ../views/partial/_header %>
+  </br></br></br>
     <% products.forEach( (product) => { %>
       <%- include('partial/_singleproduct', {product: product}); %>
       <% }); %>
@@ -55,13 +56,15 @@
                     </div>
                 </div>
             </div>
-
         </div>
+        <div class ="instagram">
+          <h1><i class="fa fa-instagram" aria-hidden="true"></i> How did your friends react? #ChristmasCrookies</h1>
+        </div>
+        <script src="https://snapwidget.com/js/snapwidget.js"></script>
+        <iframe src="https://snapwidget.com/embed/294068" class="snapwidget-widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100%; "></iframe>
+        </body>
       </div>
-    </div class="container">
-  <h1 class='break'>  </h1>
-  </body>
-
+    </div>
   <footer>
   <% include ../views/partial/_footer %>
   </footer>

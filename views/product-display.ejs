@@ -3,6 +3,7 @@
   <head>
     <title>Crookies</title>
 
+    <link rel="shortcut icon" type="image/png" href="/images/Petalart-Christmas-Cookie-Gingerbread-stars.ico"/>
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
@@ -20,28 +21,48 @@
 
   </head>
 
-  <body>
-    <div class="product-list">
-      <% include ../views/partial/_header %>
-      <form action="/custom" method="post">
-        <select class="form-control"
-                  name="flavour">
-                  <option value="Extra Spicy Crookie">Extra Spicy</option>
-                  <option value="Extra Salty Crookie">Extra Salty</option>
-                  <option value="Extra Sour Crookie">Extra Sour</option>
-                  <option value="Extra Bitter Crookie">Extra Bitter</option>
-        </select>
-        <button type="submit" class="btn btn-success btn-lg btn-block">Custom Crookie</button>
-      </form>
-        <% products.forEach( (product) => { %>
-          <%- include('partial/_product', {product: product}); %>
+    <body>
+      <main>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="product-list">
+          <% include ../views/partial/_header %>
+          <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';
+                                                document.getElementById('fade').style.display='block'">
+            <div class="container">
+              <button type="button" class="btn btn-success ribbon">Custom Crookie</button>
+            </div>
+          </a>
+          <div id="light" class="white_content">
+            <form action="/custom" method="post">
+              </br>
+              <button class="btn btn-lg btn-danger" type="subit" value="Extra Spicy Crookie">Extra Spicy</button>
+              </br>
+              <button class="btn btn-lg btn-success" type="subit" value="Extra Salty Crookie">Extra Salty</button>
+              </br>
+              <button class="btn btn-lg btn-danger" type="subit" value="Extra Sour Crookie">Extra Sour</button>
+              </br>
+              <button class="btn btn-lg btn-success" type="subit" value="Extra Bitter Crookie">Extra Bitter</button>
+            </form>
+            <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';
+                                                  document.getElementById('fade').style.display='none'">
+              Close</a>
+          </div>
+          <div id="fade" class="black_overlay"></div>
+        </div>
+        <div id="productbox">
+          <% products.forEach( (product) => { %>
+            <%- include('partial/_product', {product: product}); %>
           <% }); %>
-    </div>
+        </div>
+      </main>
     <h1 class="break">   </h1>
+    <footer>
+      <% include ../views/partial/_footer %>
+    </footer>
   </body>
 
-  <footer>
-    <% include ../views/partial/_footer %>
-  </footer>
 
 </html>

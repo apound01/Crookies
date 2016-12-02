@@ -54,7 +54,7 @@ const authenticate = (req, res, next) => {
   if (user === undefined || user['name'] !== process.env.USERNAME || user['pass'] !== process.env.PASSWORD) {
     res.statusCode = 401;
     res.setHeader('WWW-Authenticate', 'Basic realm="Bitte anmelden!"');
-    res.end('Unauthorized');
+    res.render("bad_admin");
   } else {
     next();
   }

@@ -74,6 +74,7 @@ app.get("/admin", authenticate, (req, res) => {
   knex
     .select("*")
     .from("orders")
+    .orderBy("id", "desc")
     .then((orders) => {
       knex
       .select("*")
@@ -106,8 +107,9 @@ app.get("/checkout", (req, res) => {
 
 app.get("/products", (rer, res) => {
   knex
-  .select("id", "name", "description", "unit_price", "image")
+  .select("*")
   .from("products")
+  .orderBy("id", "asc")
   .then((products) => {
     res.render('product-display', {products: products} );
   })

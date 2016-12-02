@@ -9,18 +9,18 @@ const basicAuth   = require('basic-auth');
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
-
 const knexConfig  = require("./knexfile");
+
+//Database information
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
-
 const productsRoutes = require("./routes/products");
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
-
+//Stripe test id
 const stripe = require("stripe")("pk_test_nA2ImgLsFYl7lUGcafpZnbVN");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -47,12 +47,7 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
-let custom_cookies = { "spicy": { title: "Extra Spicy Crookie",
-                                  description: "",
-                                  unit_price: 4.99
-                                }
-                      }
-
+//Admin authentication
 const authenticate = (req, res, next) => {
   const auth = require('basic-auth');
   const user = auth(req);
@@ -70,41 +65,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/admin", authenticate, (req, res) => {
-  knex
-    .select("*")
-    .from("orders")
-    .orderBy("id", "desc")
-    .then((orders) => {
-      knex
-      .select("*")
-      .from("line_items")
-      .then((line_items) => {
-        res.render('admin', {orders: orders, line_items: line_items} );
-      })
-    })
-  });
-
-app.post("/admin", (req, res) => {
-  let order_id = req.body.order_id;
-  let shipped = req.body.shipped;
-  if(shipped){
-    knex("orders")
-    .where("id", order_id)
-    .update("shipped", shipped)
-    .then( () => {
-      res.send();
-    })
-    .catch( (error) => {
-      console.log(error);
-    })
-  }
-})
-
-app.get("/checkout", (req, res) => {
-    res.render("checkout");
-});
-
+//Products page
 app.get("/products", (rer, res) => {
   knex
   .select("*")
@@ -113,8 +74,12 @@ app.get("/products", (rer, res) => {
   .then((products) => {
     res.render('product-display', {products: products} );
   })
+  .catch((error) => {
+    console.log("Error while querying database for products\n", error);
+  })
 })
 
+//Individual product page
 app.get("/products/:id", (req, res) => {
   let id = req.params.id;
   knex
@@ -136,42 +101,52 @@ app.get("/products/:id", (req, res) => {
       })
     })
 
+//Custom crookie page
 app.post("/custom", (req, res) => {
-  let flavour = req.body.flavour;
+  let flavour = req.body.flavour; //Chosen crookie flavour
   knex("products")
   .select("*")
   .where("name", flavour)
   .then( (product) => {
     res.render('custom', {product: product});
   })
+  .catch((error) => {
+    console.log("Error while querying database for custom crookie\n", error);
+  })
 })
 
-
+//Create a review
 app.post("/products/:id", (req, res) => {
   let id = req.params.id;
   knex('reviews').insert({
       product_id: req.params.id,
       description: req.body.description,
       rating: req.body.rating
-    })
-    .return({
-      inserted: true
-    })
-    .then(() => {
-      res.redirect(id);
-    });
   })
+  .return({
+    inserted: true
+  })
+  .then(() => {
+    res.redirect(id);
+  });
+})
 
+//Cart page
 app.get("/cart", (req, res) => {
   res.render("cart");
 })
 
+//Checkout page
+app.get("/checkout", (req, res) => {
+  res.render("checkout");
+});
+
+//Create an order
 app.post("/checkout", (req, res) => {
   let cart = JSON.parse(req.body.cart);
-  console.log(req.body);
   knex('orders')
   .returning('id')
-  .insert({
+  .insert({ //new order information
     total_price: cart.total,
     stripe_charge_id: req.body.token,
     first_name: req.body.first_name,
@@ -187,7 +162,7 @@ app.post("/checkout", (req, res) => {
   }).then( (result) => {
     console.log("Inserted new order.");
     for(let product in cart.products) {
-      knex("line_items").insert({
+      knex("line_items").insert({ //items included in new order
         order_id: result[0],
         product_id: product,
         quantity: cart.products[product].quantity,
@@ -200,7 +175,7 @@ app.post("/checkout", (req, res) => {
         console.log("Inserted item into line_items.");
       })
       .catch((error) => {
-        console.log(error);
+        console.log("Error while inserting line item into database\n", error);
       })
     }
   })
@@ -209,9 +184,18 @@ app.post("/checkout", (req, res) => {
   })
   .then(() => {
     res.redirect("/checkout/receipt");
-  });
+  })
+  .catch( (error) => {
+    console.log("Error while inserting order iinto database\n", error);
+  })
 })
 
+//Checkout receipt page
+app.get("/checkout/receipt", function(req, res) {
+  res.render("receipt");
+})
+
+//Stripe JS
 app.post("/plans/browserling_developer", function(req, res) {
   stripe.customers.create({
     card : req.body.stripeToken,
@@ -220,7 +204,7 @@ app.post("/plans/browserling_developer", function(req, res) {
   }, function (err, customer) {
     if (err) {
       var msg = customer.error.message || "unknown";
-      res.send("Error while processing your payment: " + msg)
+      res.send("Error while processing your payment: " + msg);
     }
     else {
       var id = customer.id;
@@ -231,9 +215,44 @@ app.post("/plans/browserling_developer", function(req, res) {
   });
 });
 
-app.get("/checkout/receipt", function(req, res) {
-  res.render("receipt");
-})
+//Administrator page to review orders
+app.get("/admin", authenticate, (req, res) => {
+  knex
+  .select("*")
+  .from("orders")
+  .orderBy("id", "desc")
+  .then((orders) => {
+    knex
+    .select("*")
+    .from("line_items")
+    .then((line_items) => {
+      res.render('admin', {orders: orders, line_items: line_items} );
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  })
+  .catch( (error) => {
+    console.log(error);
+  })
+});
+
+//Admin order shipped change
+app.post("/admin", (req, res) => {
+  let order_id = req.body.order_id;
+  let shipped = req.body.shipped;
+  if(shipped){
+    knex("orders")
+    .where("id", order_id)
+    .update("shipped", shipped)
+    .then( () => {
+      res.send();
+    })
+    .catch( (error) => {
+      console.log("Error while trying to update order shipping status\n", error);
+    });
+  }
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
